@@ -33,7 +33,7 @@ func interfaceToInterfaceList(v interface{}) (res []interface{}, err error) {
 		reflect.Array,
 	}
 	if !isInKind(vv.Kind(), canToArrKinds) {
-		return nil, fmt.Errorf("%T unsupport .Map", v)
+		return nil, fmt.Errorf("%T unsupport to array lambda operator", v)
 	}
 	switch vv.Kind() {
 	case reflect.String:

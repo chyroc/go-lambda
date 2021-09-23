@@ -4,15 +4,17 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/chyroc/go-assert"
 	"github.com/chyroc/go-lambda"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_Transfer(t *testing.T) {
+	as := assert.New(t)
+
 	type res struct {
 		item []*item
 	}
-	obj := lambda.New(res{item: []*item{
+	obj, err := lambda.New(res{item: []*item{
 		{Name: "1"},
 		{Name: "2"},
 		{Name: "3"},
@@ -25,5 +27,6 @@ func Test_Transfer(t *testing.T) {
 		return v.(*item).Name
 	}).Obj()
 
-	assert.Equal(t, []interface{}{"2"}, obj)
+	as.Equal([]interface{}{"2"}, obj)
+	as.Nil(err)
 }
