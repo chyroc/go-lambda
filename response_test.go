@@ -60,7 +60,7 @@ func Test_ToList(t *testing.T) {
 			resp := []*item{}
 			err := lambda.
 				New([]string{"1", "2"}).
-				Map(func(idx int, v interface{}) interface{} {
+				Array(func(idx int, v interface{}) interface{} {
 					return &item{Name: v.(string)}
 				}).
 				ToList(&resp)
@@ -74,7 +74,7 @@ func Test_ToList(t *testing.T) {
 			resp := []*item{}
 			err := lambda.
 				New([]string{"1", "2"}).
-				Map(func(idx int, v interface{}) interface{} {
+				Array(func(idx int, v interface{}) interface{} {
 					return &item{Name: v.(string)}
 				}).
 				ToList(resp)
@@ -142,7 +142,7 @@ func Test_ToList(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			resp, err := lambda.
 				New([]string{"1", "2", "3"}).
-				Map(func(idx int, v interface{}) interface{} {
+				Array(func(idx int, v interface{}) interface{} {
 					return &item{Name: v.(string)}
 				}).
 				String()

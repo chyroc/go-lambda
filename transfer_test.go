@@ -23,7 +23,7 @@ func Test_Transfer(t *testing.T) {
 	}).Filter(func(idx int, obj interface{}) bool {
 		i, _ := strconv.ParseInt(obj.(*item).Name, 10, 64)
 		return i%2 == 0
-	}).Map(func(idx int, v interface{}) interface{} {
+	}).Array(func(idx int, v interface{}) interface{} {
 		return v.(*item).Name
 	}).Obj()
 

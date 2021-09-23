@@ -22,7 +22,7 @@ func Test_Map(t *testing.T) {
 
 		obj, err := lambda.
 			New(data).
-			Map(func(idx int, v interface{}) interface{} {
+			Array(func(idx int, v interface{}) interface{} {
 				return v.(*item).Name
 			}).
 			Obj()
@@ -33,7 +33,7 @@ func Test_Map(t *testing.T) {
 	t.Run("", func(t *testing.T) {
 		obj, err := lambda.
 			New(1).
-			Map(func(idx int, v interface{}) interface{} {
+			Array(func(idx int, v interface{}) interface{} {
 				return v
 			}).
 			StringList()

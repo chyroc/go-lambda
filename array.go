@@ -1,6 +1,6 @@
 package lambda
 
-func (r *Object) Map(f func(idx int, v interface{}) interface{}) *Object {
+func (r *Object) Array(f func(idx int, v interface{}) interface{}) *Object {
 	if r.err != nil {
 		return r
 	}
