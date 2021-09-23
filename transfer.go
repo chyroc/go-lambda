@@ -1,6 +1,6 @@
 package lambda
 
-func (r *Obj) Transfer(f func(obj interface{}) interface{}) *Obj {
+func (r *Object) Transfer(f func(obj interface{}) interface{}) *Object {
 	if r.err != nil {
 		return r
 	}

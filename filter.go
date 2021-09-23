@@ -1,6 +1,6 @@
 package lambda
 
-func (r *Obj) Filter(f func(idx int, obj interface{}) bool) *Obj {
+func (r *Object) Filter(f func(idx int, obj interface{}) bool) *Object {
 	if r.err != nil {
 		return r
 	}

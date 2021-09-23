@@ -7,18 +7,18 @@ import (
 	"unsafe"
 )
 
-func (r *Obj) Error() error {
+func (r *Object) Error() error {
 	return r.err
 }
 
-func (r *Obj) Obj() (interface{}, error) {
+func (r *Object) Obj() (interface{}, error) {
 	if r.err != nil {
 		return nil, r.err
 	}
 	return r.obj, nil
 }
 
-func (r *Obj) Join(sep string) (string, error) {
+func (r *Object) Join(sep string) (string, error) {
 	arr, err := r.StringList()
 	if err != nil {
 		return "", err
@@ -26,7 +26,7 @@ func (r *Obj) Join(sep string) (string, error) {
 	return strings.Join(arr, sep), nil
 }
 
-func (r *Obj) String() (res string, err error) {
+func (r *Object) String() (res string, err error) {
 	if r.err != nil {
 		return "", r.err
 	}
@@ -46,7 +46,7 @@ func (r *Obj) String() (res string, err error) {
 	}
 }
 
-func (r *Obj) StringList() (res []string, err error) {
+func (r *Object) StringList() (res []string, err error) {
 	if r.err != nil {
 		return nil, r.err
 	}
@@ -60,7 +60,7 @@ func (r *Obj) StringList() (res []string, err error) {
 	return res, nil
 }
 
-func (r *Obj) ToList(resp interface{}) (err error) {
+func (r *Object) ToList(resp interface{}) (err error) {
 	if r.err != nil {
 		return r.err
 	}

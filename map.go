@@ -5,7 +5,7 @@ import (
 	"reflect"
 )
 
-func (r *Obj) Map(f func(idx int, v interface{}) interface{}) *Obj {
+func (r *Object) Map(f func(idx int, v interface{}) interface{}) *Object {
 	if r.err != nil {
 		return r
 	}

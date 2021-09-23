@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/chyroc/go-lambda"
+	"github.com/chyroc/go-ptr"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -88,6 +89,13 @@ func Test_ToList(t *testing.T) {
 				ToList(&resp)
 			as.NotNil(err)
 			as.Equal("int unsupport to array lambda operator", err.Error())
+		})
+		t.Run("", func(t *testing.T) {
+			err := lambda.
+				New([]string{"1"}).
+				ToList(ptr.Int(1))
+			as.NotNil(err)
+			as.Equal("resp must be ptr of slice", err.Error())
 		})
 	})
 
