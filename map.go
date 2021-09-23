@@ -1,10 +1,5 @@
 package lambda
 
-import (
-	"fmt"
-	"reflect"
-)
-
 func (r *Object) Map(f func(idx int, v interface{}) interface{}) *Object {
 	if r.err != nil {
 		return r
@@ -23,36 +18,4 @@ func (r *Object) Map(f func(idx int, v interface{}) interface{}) *Object {
 	}
 	r.obj = objs
 	return r
-}
-
-func interfaceToInterfaceList(v interface{}) (res []interface{}, err error) {
-	vv := reflect.ValueOf(v)
-	canToArrKinds := []reflect.Kind{
-		reflect.String,
-		reflect.Slice,
-		reflect.Array,
-	}
-	if !isInKind(vv.Kind(), canToArrKinds) {
-		return nil, fmt.Errorf("%T unsupport to array lambda operator", v)
-	}
-	switch vv.Kind() {
-	case reflect.String:
-		for _, v := range []rune(vv.String()) {
-			res = append(res, rune(v))
-		}
-	case reflect.Slice, reflect.Array:
-		for i := 0; i < vv.Len(); i++ {
-			res = append(res, vv.Index(i).Interface())
-		}
-	}
-	return
-}
-
-func isInKind(kind reflect.Kind, kinds []reflect.Kind) bool {
-	for _, v := range kinds {
-		if kind == v {
-			return true
-		}
-	}
-	return false
 }
