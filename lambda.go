@@ -7,7 +7,7 @@ import (
 type Object struct {
 	err error
 	obj interface{}
-	wg sync.WaitGroup
+	wg  sync.WaitGroup
 }
 
 func New(obj interface{}) *Object {

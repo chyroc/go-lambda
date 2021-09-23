@@ -1,6 +1,12 @@
 package lambda
 
-func (r *Object) ArrayAsync(f func(idx int, v interface{}) interface{}) *Object {
+func (r *Object) ArrayAsync(f func(idx int, obj interface{}) interface{}) *Object {
+	return r.ArrayAsyncWithErr(func(idx int, obj interface{}) (interface{}, error) {
+		return f(idx, obj), nil
+	})
+}
+
+func (r *Object) ArrayAsyncWithErr(f func(idx int, obj interface{}) (interface{}, error)) *Object {
 	if r.err != nil {
 		return r
 	}
@@ -16,7 +22,14 @@ func (r *Object) ArrayAsync(f func(idx int, v interface{}) interface{}) *Object 
 		r.wg.Add(1)
 		go func(i int, v interface{}) {
 			defer r.wg.Done()
-			objs[i] = f(i, v)
+			if r.err != nil {
+				return
+			}
+			objs[i], err = f(i, v)
+			if err != nil {
+				r.err = err
+				return
+			}
 		}(i, v)
 	}
 	r.wg.Wait()
