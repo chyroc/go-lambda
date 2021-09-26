@@ -24,7 +24,7 @@ func Test_Map(t *testing.T) {
 
 			obj, err := lambda.
 				New(data).
-				Array(func(idx int, v interface{}) interface{} {
+				MapArray(func(idx int, v interface{}) interface{} {
 					return v.(*item).Name
 				}).
 				Obj()
@@ -70,7 +70,7 @@ func Test_Map(t *testing.T) {
 			start := time.Now()
 			obj, err := lambda.
 				New([]string{"1", "2", "3"}).
-				Array(func(idx int, v interface{}) interface{} {
+				MapArray(func(idx int, v interface{}) interface{} {
 					time.Sleep(time.Second)
 					return v
 				}).

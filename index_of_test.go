@@ -1,0 +1,51 @@
+package lambda_test
+
+import (
+	"testing"
+
+	"github.com/chyroc/go-lambda"
+	"github.com/stretchr/testify/assert"
+)
+
+func Test_indexOf(t *testing.T) {
+	as := assert.New(t)
+
+	t.Run("indexOf - success", func(t *testing.T) {
+		t.Run("int", func(t *testing.T) {
+			resp, err := lambda.
+				New([]int{0, 1, 2}).
+				IndexOf(int(1)).
+				ToInt()
+			as.Nil(err)
+			as.Equal(int(1), resp)
+		})
+
+		t.Run("not-found", func(t *testing.T) {
+			resp, err := lambda.
+				New([]int{0, 1, 2}).
+				IndexOf(int(3)).
+				ToInt()
+			as.Nil(err)
+			as.Equal(int(-1), resp)
+		})
+	})
+
+	t.Run("indexOf - fail", func(t *testing.T) {
+		_, err := lambda.
+			New(234).
+			IndexOf(1).
+			ToInt()
+		as.NotNil(err)
+		as.Equal("int unsupport to array lambda operator", err.Error())
+	})
+
+	t.Run("indexOf - pre-fail", func(t *testing.T) {
+		_, err := lambda.
+			New(234).
+			MapArray(func(idx int, obj interface{}) interface{} { return obj }).
+			IndexOf(1).
+			ToInt()
+		as.NotNil(err)
+		as.Equal("int unsupport to array lambda operator", err.Error())
+	})
+}

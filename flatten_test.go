@@ -16,7 +16,7 @@ func Test_Flatten(t *testing.T) {
 
 	t.Run("没问题", func(t *testing.T) {
 		// 1 2 3 => [1 1] [2 2] [3 3] => [1 1 2 2 3 3]
-		res, err := lambda.New([]string{"1", "2", "3"}).Array(func(idx int, obj interface{}) interface{} {
+		res, err := lambda.New([]string{"1", "2", "3"}).MapArray(func(idx int, obj interface{}) interface{} {
 			x := obj.(string)
 			return []string{x, x}
 		}).Flatten().Join("")
@@ -26,7 +26,7 @@ func Test_Flatten(t *testing.T) {
 
 	t.Run("没问题", func(t *testing.T) {
 		// 1 2 3 => [1 1] 2 3 => [1 1 2 3]
-		res, err := lambda.New([]string{"1", "2", "3"}).Array(func(idx int, obj interface{}) interface{} {
+		res, err := lambda.New([]string{"1", "2", "3"}).MapArray(func(idx int, obj interface{}) interface{} {
 			x := obj.(string)
 			if x == "1" {
 				return []string{x, x}

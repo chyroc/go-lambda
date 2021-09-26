@@ -19,8 +19,8 @@ func Test_Err(t *testing.T) {
 	})
 
 	t.Run("", func(t *testing.T) {
-		as.NotNil(lambda.New(1).SetErr(fmt.Errorf("1")).Filter(nil).Error())
-		as.NotNil(lambda.New(1).SetErr(fmt.Errorf("1")).Array(nil).Error())
+		as.NotNil(lambda.New(1).SetErr(fmt.Errorf("1")).FilterArray(nil).Error())
+		as.NotNil(lambda.New(1).SetErr(fmt.Errorf("1")).MapArray(nil).Error())
 		as.NotNil(lambda.New(1).SetErr(fmt.Errorf("1")).ArrayAsync(nil).Error())
 		as.NotNil(lambda.New(1).SetErr(fmt.Errorf("1")).ArrayAsyncWithErr(nil).Error())
 		as.NotNil(lambda.New(1).SetErr(fmt.Errorf("1")).Transfer(nil).Error())

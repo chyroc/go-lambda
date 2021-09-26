@@ -20,7 +20,7 @@ func ExampleNew() {
 
 func ExampleObject_Array() {
 	// new with int list, and incr every one, return incr-ed int list
-	res, err := lambda.New([]int{1, 2, 3}).Array(func(idx int, obj interface{}) interface{} {
+	res, err := lambda.New([]int{1, 2, 3}).MapArray(func(idx int, obj interface{}) interface{} {
 		return obj.(int) + 1
 	}).ToIntList()
 	fmt.Println("err", err)
