@@ -19,7 +19,7 @@ func (r *Object) Obj() (interface{}, error) {
 }
 
 func (r *Object) Join(sep string) (string, error) {
-	arr, err := r.StringList()
+	arr, err := r.ToStringList()
 	if err != nil {
 		return "", err
 	}
@@ -44,20 +44,6 @@ func (r *Object) String() (res string, err error) {
 	default:
 		return "", fmt.Errorf("%T unsupport .String lambda operator", r.obj)
 	}
-}
-
-func (r *Object) StringList() (res []string, err error) {
-	if r.err != nil {
-		return nil, r.err
-	}
-	arr, err := interfaceToInterfaceList(r.obj)
-	if err != nil {
-		return nil, err
-	}
-	for _, v := range arr {
-		res = append(res, fmt.Sprintf("%s", v))
-	}
-	return res, nil
 }
 
 func (r *Object) ToList(resp interface{}) (err error) {

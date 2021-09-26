@@ -35,28 +35,6 @@ func Test_ToList(t *testing.T) {
 
 	t.Run("", func(t *testing.T) {
 		t.Run("", func(t *testing.T) {
-			resp, err := lambda.
-				New([]string{"1", "2", "3"}).
-				Filter(func(idx int, obj interface{}) bool {
-					return obj.(string) != "2"
-				}).
-				StringList()
-			as.Nil(err)
-			as.Equal([]string{"1", "3"}, resp)
-		})
-
-		t.Run("", func(t *testing.T) {
-			resp, err := lambda.
-				New(123).
-				StringList()
-			as.Nil(resp)
-			as.NotNil(err)
-			as.Equal("int unsupport to array lambda operator", err.Error())
-		})
-	})
-
-	t.Run("", func(t *testing.T) {
-		t.Run("", func(t *testing.T) {
 			resp := []*item{}
 			err := lambda.
 				New([]string{"1", "2"}).

@@ -1,7 +1,6 @@
 package lambda_test
 
 import (
-	"fmt"
 	"testing"
 	"time"
 
@@ -110,59 +109,6 @@ func Test_Map(t *testing.T) {
 			as.Equal([]interface{}{"1", "2", "3"}, obj)
 			dur := time.Now().Sub(start).Seconds()
 			as.True(dur < 2)
-		})
-	})
-
-	t.Run("出现了 err", func(t *testing.T) {
-		t.Run("", func(t *testing.T) {
-			obj, err := lambda.
-				New(1).
-				Array(func(idx int, v interface{}) interface{} {
-					return v
-				}).
-				StringList()
-			as.NotNil(err)
-			as.Nil(obj)
-			as.Equal("int unsupport to array lambda operator", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-			obj, err := lambda.
-				New(1).
-				ArrayAsync(func(idx int, v interface{}) interface{} {
-					return v
-				}).
-				StringList()
-			as.NotNil(err)
-			as.Nil(obj)
-			as.Equal("int unsupport to array lambda operator", err.Error())
-		})
-
-		t.Run("常规 err", func(t *testing.T) {
-			obj, err := lambda.
-				New(1).
-				ArrayAsyncWithErr(func(idx int, v interface{}) (interface{}, error) {
-					return v, nil
-				}).
-				StringList()
-			as.NotNil(err)
-			as.Nil(obj)
-			as.Equal("int unsupport to array lambda operator", err.Error())
-		})
-
-		t.Run("WithErr 出现了 err", func(t *testing.T) {
-			obj, err := lambda.
-				New([]string{"1", "2", "3"}).
-				ArrayAsyncWithErr(func(idx int, v interface{}) (interface{}, error) {
-					if idx == 0 {
-						return nil, fmt.Errorf("err")
-					}
-					return v, nil
-				}).
-				StringList()
-			as.NotNil(err)
-			as.Nil(obj)
-			as.Equal("err", err.Error())
 		})
 	})
 }
