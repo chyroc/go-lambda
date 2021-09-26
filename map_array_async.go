@@ -1,12 +1,12 @@
 package lambda
 
-func (r *Object) ArrayAsync(f func(idx int, obj interface{}) interface{}) *Object {
-	return r.ArrayAsyncWithErr(func(idx int, obj interface{}) (interface{}, error) {
+func (r *Object) MapArrayAsync(f func(idx int, obj interface{}) interface{}) *Object {
+	return r.MapArrayAsyncWithErr(func(idx int, obj interface{}) (interface{}, error) {
 		return f(idx, obj), nil
 	})
 }
 
-func (r *Object) ArrayAsyncWithErr(f func(idx int, obj interface{}) (interface{}, error)) *Object {
+func (r *Object) MapArrayAsyncWithErr(f func(idx int, obj interface{}) (interface{}, error)) *Object {
 	if r.err != nil {
 		return r
 	}

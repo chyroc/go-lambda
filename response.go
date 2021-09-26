@@ -5,6 +5,8 @@ import (
 	"reflect"
 	"strings"
 	"unsafe"
+
+	"github.com/chyroc/go-lambda/internal"
 )
 
 func (r *Object) Error() error {
@@ -32,7 +34,7 @@ func (r *Object) String() (res string, err error) {
 	}
 	switch v := r.obj.(type) {
 	case []rune, []byte, string:
-		return toStrictString(r.obj)
+		return internal.ToString(r.obj)
 	case []interface{}:
 		if vv, err := interfaceList2Int32List(v); err == nil {
 			return string(vv), nil

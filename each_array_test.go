@@ -13,8 +13,7 @@ func Test_eachArray(t *testing.T) {
 	t.Run("eachArray - success", func(t *testing.T) {
 		t.Run("int", func(t *testing.T) {
 			res := []int{}
-			err := lambda.
-				New([]int{0, 1, 2}).
+			err := lambda.New([]int{0, 1, 2}).
 				EachArray(func(idx int, obj interface{}) {
 					res = append(res, obj.(int))
 				})

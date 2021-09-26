@@ -15,6 +15,21 @@ func (r *Object) MapArray(f func(idx int, obj interface{}) interface{}) *Object 
 	return r.clone(objs, err)
 }
 
+func (r *Object) MapArrayWithErr(f func(idx int, obj interface{}) (interface{}, error)) *Object {
+	objs := []interface{}{}
+	transfer := func(idx int, obj interface{}) error {
+		res, err := f(idx, obj)
+		if err != nil {
+			return err
+		}
+		objs = append(objs, res)
+		return nil
+	}
+
+	err := r.eachArray(transfer)
+	return r.clone(objs, err)
+}
+
 func (r *Object) eachArray(f func(idx int, item interface{}) error) error {
 	if r.err != nil {
 		return r.err
