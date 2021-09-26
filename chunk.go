@@ -4,7 +4,6 @@ package lambda
 // If array can't be split evenly, the final chunk will be the remaining elements.
 func (r *Object) Chunk(size int) *Object {
 	objs := []interface{}{}
-	// res := [][]interface{}{}
 	item := []interface{}{}
 	transfer := func(idx int, obj interface{}) error {
 		if len(item) < size {
