@@ -19,11 +19,6 @@ func (r *Object) Flatten() *Object {
 		return nil
 	}
 
-	if err := r.eachArray(transfer); err != nil {
-		r.err = err
-		return r
-	}
-
-	r.obj = objs
-	return r
+	err := r.eachArray(transfer)
+	return r.clone(objs, err)
 }

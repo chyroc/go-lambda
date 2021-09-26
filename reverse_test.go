@@ -21,6 +21,14 @@ func Test_reverse(t *testing.T) {
 		})
 	})
 
+	t.Run("reverse - not-change-self", func(t *testing.T) {
+		req := lambda.New([]int{0, 1, 2, 3})
+		req.Reverse()
+		res, err := req.ToIntList()
+		as.Nil(err)
+		as.Equal([]int{0, 1, 2, 3}, res)
+	})
+
 	t.Run("reverse - fail", func(t *testing.T) {
 		_, err := lambda.
 			New(234).

@@ -28,6 +28,20 @@ func Test_groupByArray(t *testing.T) {
 		})
 	})
 
+	t.Run("groupByArray - not-change-self", func(t *testing.T) {
+		req := lambda.New([]int{0, 1, 2, 3})
+		req.GroupByArray(func(idx int, obj interface{}) interface{} {
+			if obj.(int) > 1 {
+				return 2
+			} else {
+				return 1
+			}
+		})
+		res, err := req.ToIntList()
+		as.Nil(err)
+		as.Equal([]int{0, 1, 2, 3}, res)
+	})
+
 	t.Run("groupByArray - fail", func(t *testing.T) {
 		_, err := lambda.
 			New(234).

@@ -9,11 +9,6 @@ func (r *Object) FilterArray(f func(idx int, obj interface{}) bool) *Object {
 		return nil
 	}
 
-	if err := r.eachArray(transfer); err != nil {
-		r.err = err
-		return r
-	}
-
-	r.obj = objs
-	return r
+	err := r.eachArray(transfer)
+	return r.clone(objs, err)
 }

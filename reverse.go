@@ -2,13 +2,12 @@ package lambda
 
 func (r *Object) Reverse() *Object {
 	if r.err != nil {
-		return r
+		return r.clone(nil, r.err)
 	}
 
 	arr, err := interfaceToInterfaceList(r.obj)
 	if err != nil {
-		r.err = err
-		return r
+		return r.clone(nil, err)
 	}
 
 	res := []interface{}{}
@@ -16,6 +15,5 @@ func (r *Object) Reverse() *Object {
 		res = append(res, arr[i])
 	}
 
-	r.obj = res
-	return r
+	return r.clone(res, err)
 }

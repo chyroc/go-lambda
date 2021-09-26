@@ -19,6 +19,14 @@ func Test_chunk(t *testing.T) {
 		as.Equal([][]int{{1, 2}, {3, 4}, {5}}, resp)
 	})
 
+	t.Run("chunk - not-change-self", func(t *testing.T) {
+		req := lambda.New([]int{1, 2, 3, 4, 5})
+		req.Chunk(2)
+		res, err := req.ToIntList()
+		as.Nil(err)
+		as.Equal([]int{1, 2, 3, 4, 5}, res)
+	})
+
 	t.Run("chunk - fail", func(t *testing.T) {
 		_, err := lambda.
 			New(234).

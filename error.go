@@ -1,6 +1,5 @@
 package lambda
 
-func (r *Object) SetErr(err error) *Object {
-	r.err = err
-	return r
+func (r *Object) WithErr(err error) *Object {
+	return r.clone(nil, err)
 }

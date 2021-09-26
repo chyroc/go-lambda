@@ -13,8 +13,7 @@ func (r *Object) ArrayAsyncWithErr(f func(idx int, obj interface{}) (interface{}
 
 	arr, err := interfaceToInterfaceList(r.obj)
 	if err != nil {
-		r.err = err
-		return r
+		return r.clone(nil, err)
 	}
 
 	objs := make([]interface{}, len(arr))
@@ -34,6 +33,5 @@ func (r *Object) ArrayAsyncWithErr(f func(idx int, obj interface{}) (interface{}
 	}
 	r.wg.Wait()
 
-	r.obj = objs
-	return r
+	return r.clone(objs, nil)
 }

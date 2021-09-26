@@ -30,6 +30,14 @@ func Test_indexOf(t *testing.T) {
 		})
 	})
 
+	t.Run("indexOf - not-change-self", func(t *testing.T) {
+		req := lambda.New([]int{0, 1, 2, 3})
+		req.IndexOf(1)
+		res, err := req.ToIntList()
+		as.Nil(err)
+		as.Equal([]int{0, 1, 2, 3}, res)
+	})
+
 	t.Run("indexOf - fail", func(t *testing.T) {
 		_, err := lambda.
 			New(234).

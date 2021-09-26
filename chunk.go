@@ -1,7 +1,5 @@
 package lambda
 
-// Chunk Creates an array of elements split into groups the length of size.
-// If array can't be split evenly, the final chunk will be the remaining elements.
 func (r *Object) Chunk(size int) *Object {
 	objs := []interface{}{}
 	item := []interface{}{}
@@ -16,8 +14,7 @@ func (r *Object) Chunk(size int) *Object {
 	}
 
 	if err := r.eachArray(transfer); err != nil {
-		r.err = err
-		return r
+		return r.clone(nil, err)
 	}
 
 	if len(item) > 0 {
@@ -25,6 +22,5 @@ func (r *Object) Chunk(size int) *Object {
 		item = []interface{}{}
 	}
 
-	r.obj = objs
-	return r
+	return r.clone(objs, nil)
 }

@@ -2,10 +2,8 @@ package lambda
 
 func (r *Object) Transfer(f func(obj interface{}) interface{}) *Object {
 	if r.err != nil {
-		return r
+		return r.clone(nil, r.err)
 	}
 
-	r.obj = f(r.obj)
-
-	return r
+	return r.clone(f(r.obj), nil)
 }

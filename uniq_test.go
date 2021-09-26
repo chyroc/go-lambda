@@ -21,6 +21,14 @@ func Test_uniq(t *testing.T) {
 		})
 	})
 
+	t.Run("uniq - not-change-self", func(t *testing.T) {
+		req := lambda.New([]int{0, 1, 2, 3, 2, 3})
+		req.Uniq()
+		res, err := req.ToIntList()
+		as.Nil(err)
+		as.Equal([]int{0, 1, 2, 3, 2, 3}, res)
+	})
+
 	t.Run("uniq - fail", func(t *testing.T) {
 		_, err := lambda.
 			New(234).

@@ -2,7 +2,6 @@ package lambda
 
 import (
 	"errors"
-	"fmt"
 )
 
 func (r *Object) MapArray(f func(idx int, obj interface{}) interface{}) *Object {
@@ -12,16 +11,9 @@ func (r *Object) MapArray(f func(idx int, obj interface{}) interface{}) *Object 
 		return nil
 	}
 
-	if err := r.eachArray(transfer); err != nil {
-		r.err = err
-		return r
-	}
-
-	r.obj = objs
-	return r
+	err := r.eachArray(transfer)
+	return r.clone(objs, err)
 }
-
-var errBreak = fmt.Errorf("each break")
 
 func (r *Object) eachArray(f func(idx int, item interface{}) error) error {
 	if r.err != nil {
@@ -35,7 +27,7 @@ func (r *Object) eachArray(f func(idx int, item interface{}) error) error {
 
 	for i, v := range arr {
 		if err := f(i, v); err != nil {
-			if errors.Is(err, errBreak) {
+			if errors.Is(err, ErrBreak) {
 				return nil
 			}
 			return err
@@ -56,7 +48,7 @@ func (r *Object) eachMap(f func(key interface{}, val interface{}) error) error {
 
 	for key, val := range maps {
 		if err := f(key, val); err != nil {
-			if errors.Is(err, errBreak) {
+			if errors.Is(err, ErrBreak) {
 				return nil
 			}
 			return err

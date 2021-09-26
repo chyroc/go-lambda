@@ -45,6 +45,14 @@ func Test_compact(t *testing.T) {
 		})
 	})
 
+	t.Run("compact - not-change-self", func(t *testing.T) {
+		req := lambda.New([]int{0, 1, 2})
+		req.Compact()
+		res, err := req.ToIntList()
+		as.Nil(err)
+		as.Equal([]int{0, 1, 2}, res)
+	})
+
 	t.Run("compact - fail", func(t *testing.T) {
 		_, err := lambda.
 			New(234).
@@ -64,5 +72,3 @@ func Test_compact(t *testing.T) {
 		as.Equal("int unsupport to array lambda operator", err.Error())
 	})
 }
-
-var nilInterface interface{} = nil

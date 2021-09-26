@@ -3,6 +3,7 @@ package lambda
 import (
 	"fmt"
 	"reflect"
+	"sync"
 )
 
 func interfaceToInterfaceList(v interface{}) (res []interface{}, err error) {
@@ -84,4 +85,45 @@ func interfaceList2Uint8List(vv []interface{}) (res []uint8, err error) {
 		}
 	}
 	return res, nil
+}
+
+// The values false, null, 0, "", undefined, and NaN are falsey.
+func isFalsey(v interface{}) bool {
+	switch v := v.(type) {
+	case error:
+		return v == nil
+	case int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64, uintptr:
+		return v == 0
+	case float32, float64:
+		return v == 0
+	case string:
+		return v == ""
+	case bool:
+		return !v
+	case interface{}:
+		return v == nil
+	}
+	return v == nil
+}
+
+func (r *Object) clone(obj interface{}, err error) *Object {
+	if err != nil {
+		return &Object{
+			err: err,
+			obj: r.obj,
+			wg:  new(sync.WaitGroup),
+		}
+	}
+	if r.err != nil {
+		return &Object{
+			err: r.err,
+			obj: r.obj,
+			wg:  new(sync.WaitGroup),
+		}
+	}
+	return &Object{
+		err: nil,
+		obj: obj,
+		wg:  new(sync.WaitGroup),
+	}
 }

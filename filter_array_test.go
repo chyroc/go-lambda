@@ -45,4 +45,14 @@ func Test_filterArray(t *testing.T) {
 		as.NotNil(err)
 		as.Equal("int unsupport to array lambda operator", err.Error())
 	})
+
+	t.Run("filterArray - not-change-self", func(t *testing.T) {
+		req := lambda.New([]int{0, 1, 2})
+		req.FilterArray(func(idx int, obj interface{}) bool {
+			return obj.(int)%2 == 0
+		})
+		res, err := req.ToIntList()
+		as.Nil(err)
+		as.Equal([]int{0, 1, 2}, res)
+	})
 }
