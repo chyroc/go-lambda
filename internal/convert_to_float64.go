@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func ToFloat(v interface{}) (float64, error) {
+func ToFloat64(v interface{}) (float64, error) {
 	switch v := v.(type) {
 	case float32:
 		return float64(v), nil

@@ -10,7 +10,7 @@ func ToFloat64List(v interface{}) (resp []float64, err error) {
 		return v, nil
 	case []interface{}:
 		for _, vv := range v {
-			vvv, err := ToFloat(vv)
+			vvv, err := ToFloat64(vv)
 			if err != nil {
 				return nil, err
 			}
