@@ -44,24 +44,24 @@ func Test_groupByArray(t *testing.T) {
 
 	t.Run("groupByArray - fail", func(t *testing.T) {
 		_, err := lambda.
-			New(234).
+			New(123).
 			GroupByArray(func(idx int, obj interface{}) interface{} {
 				return obj
 			}).
 			ToMapInt2Float64List()
 		as.NotNil(err)
-		as.Equal("int unsupport to array lambda operator", err.Error())
+		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
 
 	t.Run("groupByArray - pre-fail", func(t *testing.T) {
 		_, err := lambda.
-			New(234).
+			New(123).
 			MapArray(func(idx int, obj interface{}) interface{} { return obj }).
 			GroupByArray(func(idx int, obj interface{}) interface{} {
 				return obj
 			}).
 			ToMapInt2Float64List()
 		as.NotNil(err)
-		as.Equal("int unsupport to array lambda operator", err.Error())
+		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
 }

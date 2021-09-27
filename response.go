@@ -52,7 +52,7 @@ func (r *Object) ToList(resp interface{}) (err error) {
 	if r.err != nil {
 		return r.err
 	}
-	arr, err := interfaceToInterfaceList(r.obj)
+	arr, err := internal.ToInterfaceList(r.obj)
 	if err != nil {
 		return err
 	}

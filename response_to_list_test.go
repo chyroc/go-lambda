@@ -20,11 +20,9 @@ func Test_list(t *testing.T) {
 		})
 
 		t.Run("fail", func(t *testing.T) {
-			_, err := lambda.New(
-				123,
-			).ToStringList()
+			_, err := lambda.New(123).ToStringList()
 			as.NotNil(err)
-			as.Equal("int unsupport to array lambda operator", err.Error())
+			as.Equal("123(int) can't convert to []interface", err.Error())
 		})
 	})
 
@@ -38,11 +36,9 @@ func Test_list(t *testing.T) {
 		})
 
 		t.Run("fail", func(t *testing.T) {
-			_, err := lambda.New(
-				123,
-			).ToIntList()
+			_, err := lambda.New(123).ToIntList()
 			as.NotNil(err)
-			as.Equal("int unsupport to array lambda operator", err.Error())
+			as.Equal("123(int) can't convert to []interface", err.Error())
 		})
 	})
 
@@ -56,11 +52,9 @@ func Test_list(t *testing.T) {
 		})
 
 		t.Run("fail", func(t *testing.T) {
-			_, err := lambda.New(
-				123,
-			).ToBoolList()
+			_, err := lambda.New(123).ToBoolList()
 			as.NotNil(err)
-			as.Equal("int unsupport to array lambda operator", err.Error())
+			as.Equal("123(int) can't convert to []interface", err.Error())
 		})
 	})
 
@@ -74,11 +68,9 @@ func Test_list(t *testing.T) {
 		})
 
 		t.Run("fail", func(t *testing.T) {
-			_, err := lambda.New(
-				123,
-			).ToInterfaceList()
+			_, err := lambda.New(123).ToInterfaceList()
 			as.NotNil(err)
-			as.Equal("int unsupport to array lambda operator", err.Error())
+			as.Equal("123(int) can't convert to []interface", err.Error())
 		})
 	})
 }

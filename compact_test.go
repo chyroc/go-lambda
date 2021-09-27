@@ -55,20 +55,20 @@ func Test_compact(t *testing.T) {
 
 	t.Run("compact - fail", func(t *testing.T) {
 		_, err := lambda.
-			New(234).
+			New(123).
 			Compact().
 			ToIntList()
 		as.NotNil(err)
-		as.Equal("int unsupport to array lambda operator", err.Error())
+		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
 
 	t.Run("compact - pre-fail", func(t *testing.T) {
 		_, err := lambda.
-			New(234).
+			New(123).
 			MapArray(func(idx int, obj interface{}) interface{} { return obj }).
 			Compact().
 			ToIntList()
 		as.NotNil(err)
-		as.Equal("int unsupport to array lambda operator", err.Error())
+		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
 }

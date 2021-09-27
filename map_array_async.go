@@ -1,5 +1,9 @@
 package lambda
 
+import (
+	"github.com/chyroc/go-lambda/internal"
+)
+
 func (r *Object) MapArrayAsync(f func(idx int, obj interface{}) interface{}) *Object {
 	return r.MapArrayAsyncWithErr(func(idx int, obj interface{}) (interface{}, error) {
 		return f(idx, obj), nil
@@ -11,7 +15,7 @@ func (r *Object) MapArrayAsyncWithErr(f func(idx int, obj interface{}) (interfac
 		return r
 	}
 
-	arr, err := interfaceToInterfaceList(r.obj)
+	arr, err := internal.ToInterfaceList(r.obj)
 	if err != nil {
 		return r.clone(nil, err)
 	}

@@ -29,7 +29,7 @@ func Test_ToList(t *testing.T) {
 				Join("/")
 			as.Empty(resp)
 			as.NotNil(err)
-			as.Equal("int unsupport to array lambda operator", err.Error())
+			as.Equal("123(int) can't convert to []interface", err.Error())
 		})
 	})
 
@@ -66,7 +66,7 @@ func Test_ToList(t *testing.T) {
 				New(123).
 				ToList(&resp)
 			as.NotNil(err)
-			as.Equal("int unsupport to array lambda operator", err.Error())
+			as.Equal("123(int) can't convert to []interface", err.Error())
 		})
 		t.Run("", func(t *testing.T) {
 			err := lambda.

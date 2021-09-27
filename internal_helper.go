@@ -6,29 +6,6 @@ import (
 	"sync"
 )
 
-func interfaceToInterfaceList(v interface{}) (res []interface{}, err error) {
-	vv := reflect.ValueOf(v)
-	canToArrKinds := []reflect.Kind{
-		reflect.String,
-		reflect.Slice,
-		reflect.Array,
-	}
-	if !isInKind(vv.Kind(), canToArrKinds) {
-		return nil, fmt.Errorf("%T unsupport to array lambda operator", v)
-	}
-	switch vv.Kind() {
-	case reflect.String:
-		for _, v := range []rune(vv.String()) {
-			res = append(res, rune(v))
-		}
-	case reflect.Slice, reflect.Array:
-		for i := 0; i < vv.Len(); i++ {
-			res = append(res, vv.Index(i).Interface())
-		}
-	}
-	return
-}
-
 func interfaceToInterfaceMap(v interface{}) (res map[interface{}]interface{}, err error) {
 	vv := reflect.ValueOf(v)
 	if vv.Kind() != reflect.Map {
@@ -41,15 +18,6 @@ func interfaceToInterfaceMap(v interface{}) (res map[interface{}]interface{}, er
 		res[m.Key().Interface()] = m.Value().Interface()
 	}
 	return
-}
-
-func isInKind(kind reflect.Kind, kinds []reflect.Kind) bool {
-	for _, v := range kinds {
-		if kind == v {
-			return true
-		}
-	}
-	return false
 }
 
 func interfaceList2Int32List(vv []interface{}) (res []int32, err error) {

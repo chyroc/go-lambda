@@ -40,20 +40,20 @@ func Test_indexOf(t *testing.T) {
 
 	t.Run("indexOf - fail", func(t *testing.T) {
 		_, err := lambda.
-			New(234).
+			New(123).
 			IndexOf(1).
 			ToInt()
 		as.NotNil(err)
-		as.Equal("int unsupport to array lambda operator", err.Error())
+		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
 
 	t.Run("indexOf - pre-fail", func(t *testing.T) {
 		_, err := lambda.
-			New(234).
+			New(123).
 			MapArray(func(idx int, obj interface{}) interface{} { return obj }).
 			IndexOf(1).
 			ToInt()
 		as.NotNil(err)
-		as.Equal("int unsupport to array lambda operator", err.Error())
+		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
 }

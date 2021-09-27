@@ -24,20 +24,20 @@ func Test_eachArray(t *testing.T) {
 
 	t.Run("eachArray - fail", func(t *testing.T) {
 		err := lambda.
-			New(234).
+			New(123).
 			EachArray(func(idx int, obj interface{}) {
 			})
 		as.NotNil(err)
-		as.Equal("int unsupport to array lambda operator", err.Error())
+		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
 
 	t.Run("compact - pre-fail", func(t *testing.T) {
 		err := lambda.
-			New(234).
+			New(123).
 			MapArray(func(idx int, obj interface{}) interface{} { return obj }).
 			EachArray(func(idx int, obj interface{}) {
 			})
 		as.NotNil(err)
-		as.Equal("int unsupport to array lambda operator", err.Error())
+		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
 }

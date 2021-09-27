@@ -31,20 +31,20 @@ func Test_uniq(t *testing.T) {
 
 	t.Run("uniq - fail", func(t *testing.T) {
 		_, err := lambda.
-			New(234).
+			New(123).
 			Uniq().
 			ToIntList()
 		as.NotNil(err)
-		as.Equal("int unsupport to array lambda operator", err.Error())
+		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
 
 	t.Run("uniq - pre-fail", func(t *testing.T) {
 		_, err := lambda.
-			New(234).
+			New(123).
 			MapArray(func(idx int, obj interface{}) interface{} { return obj }).
 			Uniq().
 			ToIntList()
 		as.NotNil(err)
-		as.Equal("int unsupport to array lambda operator", err.Error())
+		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
 }

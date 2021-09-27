@@ -25,25 +25,25 @@ func Test_filterArray(t *testing.T) {
 
 	t.Run("filterArray - fail", func(t *testing.T) {
 		_, err := lambda.
-			New(234).
+			New(123).
 			FilterArray(func(idx int, obj interface{}) bool {
 				return true
 			}).
 			ToIntList()
 		as.NotNil(err)
-		as.Equal("int unsupport to array lambda operator", err.Error())
+		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
 
 	t.Run("filterArray - pre-fail", func(t *testing.T) {
 		_, err := lambda.
-			New(234).
+			New(123).
 			MapArray(func(idx int, obj interface{}) interface{} { return obj }).
 			FilterArray(func(idx int, obj interface{}) bool {
 				return true
 			}).
 			ToIntList()
 		as.NotNil(err)
-		as.Equal("int unsupport to array lambda operator", err.Error())
+		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
 
 	t.Run("filterArray - not-change-self", func(t *testing.T) {

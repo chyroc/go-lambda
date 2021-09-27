@@ -2,6 +2,8 @@ package lambda
 
 import (
 	"errors"
+
+	"github.com/chyroc/go-lambda/internal"
 )
 
 func (r *Object) MapArray(f func(idx int, obj interface{}) interface{}) *Object {
@@ -35,7 +37,7 @@ func (r *Object) eachArray(f func(idx int, item interface{}) error) error {
 		return r.err
 	}
 
-	arr, err := interfaceToInterfaceList(r.obj)
+	arr, err := internal.ToInterfaceList(r.obj)
 	if err != nil {
 		return err
 	}

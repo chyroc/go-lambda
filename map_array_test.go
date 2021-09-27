@@ -61,7 +61,7 @@ func Test_Map(t *testing.T) {
 						return v.(*item).Name
 					}).ToStringList()
 				as.NotNil(err)
-				as.Equal("int unsupport to array lambda operator", err.Error())
+				as.Equal("123(int) can't convert to []interface", err.Error())
 			})
 
 			t.Run("fail", func(t *testing.T) {
@@ -70,7 +70,7 @@ func Test_Map(t *testing.T) {
 						return v.(*item).Name
 					}).ToStringList()
 				as.NotNil(err)
-				as.Equal("int unsupport to array lambda operator", err.Error())
+				as.Equal("123(int) can't convert to []interface", err.Error())
 			})
 		})
 
@@ -84,7 +84,7 @@ func Test_Map(t *testing.T) {
 						return v.(*item).Name
 					}).ToStringList()
 				as.NotNil(err)
-				as.Equal("int unsupport to array lambda operator", err.Error())
+				as.Equal("123(int) can't convert to []interface", err.Error())
 			})
 
 			t.Run("fail", func(t *testing.T) {
@@ -93,7 +93,7 @@ func Test_Map(t *testing.T) {
 						return v.(*item).Name
 					}).ToStringList()
 				as.NotNil(err)
-				as.Equal("int unsupport to array lambda operator", err.Error())
+				as.Equal("123(int) can't convert to []interface", err.Error())
 			})
 		})
 
@@ -107,7 +107,7 @@ func Test_Map(t *testing.T) {
 						return v.(*item).Name, nil
 					}).ToStringList()
 				as.NotNil(err)
-				as.Equal("int unsupport to array lambda operator", err.Error())
+				as.Equal("123(int) can't convert to []interface", err.Error())
 			})
 
 			t.Run("fail", func(t *testing.T) {
@@ -116,7 +116,7 @@ func Test_Map(t *testing.T) {
 						return v.(*item).Name, nil
 					}).ToStringList()
 				as.NotNil(err)
-				as.Equal("int unsupport to array lambda operator", err.Error())
+				as.Equal("123(int) can't convert to []interface", err.Error())
 			})
 		})
 	})

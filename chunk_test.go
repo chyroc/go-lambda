@@ -29,20 +29,20 @@ func Test_chunk(t *testing.T) {
 
 	t.Run("chunk - fail", func(t *testing.T) {
 		_, err := lambda.
-			New(234).
+			New(123).
 			Chunk(2).
 			ToIntListList()
 		as.NotNil(err)
-		as.Equal("int unsupport to array lambda operator", err.Error())
+		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
 
 	t.Run("chunk - pre-fail", func(t *testing.T) {
 		_, err := lambda.
-			New(234).
+			New(123).
 			MapArray(func(idx int, obj interface{}) interface{} { return obj }).
 			Chunk(2).
 			ToIntListList()
 		as.NotNil(err)
-		as.Equal("int unsupport to array lambda operator", err.Error())
+		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
 }

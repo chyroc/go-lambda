@@ -47,12 +47,17 @@ func TestIsZero(t *testing.T) {
 		{name: "{v: uint64(0)}", args: args{v: uint64(0)}, want: true},
 		{name: "{v: uintptr(0)}", args: args{v: uintptr(0)}, want: true},
 
-		// float64(),
+		// float
 		{name: "{v: float32(1)}", args: args{v: float32(1)}, want: false},
 		{name: "{v: float64(1)}", args: args{v: float64(1)}, want: false},
-
 		{name: "{v: float32(0)}", args: args{v: float32(0)}, want: true},
 		{name: "{v: float64(0)}", args: args{v: float64(0)}, want: true},
+
+		// complex
+		{name: "{v: complex64(1)}", args: args{v: complex64(1)}, want: false},
+		{name: "{v: complex128(1)}", args: args{v: complex128(1)}, want: false},
+		{name: "{v: complex64(0)}", args: args{v: complex64(0)}, want: true},
+		{name: "{v: complex128(0)}", args: args{v: complex128(0)}, want: true},
 
 		// str
 		{name: "{v: \"str\"}", args: args{v: "str"}, want: false},
@@ -65,6 +70,7 @@ func TestIsZero(t *testing.T) {
 		// interface
 		{name: "{v: interface{}(1)}", args: args{v: interface{}(1)}, want: false},
 		{name: "{v: nilInterface}", args: args{v: nilInterface}, want: true},
+		{name: "{v: nilStructInterface}", args: args{v: nilStructInterface}, want: true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -73,4 +79,9 @@ func TestIsZero(t *testing.T) {
 	}
 }
 
-var nilInterface interface{} = nil
+var (
+	nilInterface       interface{} = nil
+	nilStructInterface *item
+)
+
+type item struct{}
