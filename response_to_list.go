@@ -68,7 +68,7 @@ func (r *Object) ToInterfaceList() (res []interface{}, err error) {
 
 func (r *Object) ToIntListList() (res [][]int, err error) {
 	transfer := func(idx int, item interface{}) error {
-		resp, err := internal.ToIntList(item)
+		resp, err := internal.ToIntSlice(item)
 		if err != nil {
 			return err
 		}
@@ -89,7 +89,7 @@ func (r *Object) ToMapInt2Float64List() (res map[int][]float64, err error) {
 		if err != nil {
 			return err
 		}
-		v, err := internal.ToFloat64List(val)
+		v, err := internal.ToFloat64Slice(val)
 		if err != nil {
 			return err
 		}

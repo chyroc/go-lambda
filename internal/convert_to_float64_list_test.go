@@ -49,7 +49,7 @@ func TestToFloat64List(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotResp, err := ToFloat64List(tt.args.v)
+			gotResp, err := ToFloat64Slice(tt.args.v)
 			if tt.wantErr {
 				as.NotNil(err)
 				as.Contains(err.Error(), tt.containErr)
