@@ -87,3 +87,24 @@ func (r *Object) ToFloat64() (float64, error) {
 	}
 	return internal.ToFloat64(r.obj)
 }
+
+func (r *Object) ToBool() (bool, error) {
+	if r.err != nil {
+		return false, r.err
+	}
+	return internal.ToBool(r.obj)
+}
+
+func (r *Object) ToComplex64() (complex64, error) {
+	if r.err != nil {
+		return 0, r.err
+	}
+	return internal.ToComplex64(r.obj)
+}
+
+func (r *Object) ToComplex128() (complex128, error) {
+	if r.err != nil {
+		return 0, r.err
+	}
+	return internal.ToComplex128(r.obj)
+}
