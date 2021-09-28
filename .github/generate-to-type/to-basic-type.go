@@ -710,7 +710,7 @@ func Test_To(t *testing.T) {
 
 {{range	.ToTypeReqs}}t.Run("To{{.TypeTitle}}", func(t *testing.T) {
 		t.Run("To{{.TypeTitle}} - success", func(t *testing.T) {
-			res, err := lambda.New({{.Type}}(1)).To{{.TypeTitle}}()
+			res, err := lambda.New({{.Type}}({{.OneVal}})).To{{.TypeTitle}}()
 			as.Nil(err)
 			as.Equal({{.Type}}({{.OneVal}}), res)
 		})

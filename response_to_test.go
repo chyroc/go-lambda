@@ -14,7 +14,7 @@ func Test_To(t *testing.T) {
 
 	t.Run("ToInt", func(t *testing.T) {
 		t.Run("ToInt - success", func(t *testing.T) {
-			res, err := lambda.New(int(1)).ToInt()
+			res, err := lambda.New(int(int(1))).ToInt()
 			as.Nil(err)
 			as.Equal(int(int(1)), res)
 		})
@@ -32,7 +32,7 @@ func Test_To(t *testing.T) {
 	})
 	t.Run("ToInt8", func(t *testing.T) {
 		t.Run("ToInt8 - success", func(t *testing.T) {
-			res, err := lambda.New(int8(1)).ToInt8()
+			res, err := lambda.New(int8(int8(1))).ToInt8()
 			as.Nil(err)
 			as.Equal(int8(int8(1)), res)
 		})
@@ -50,7 +50,7 @@ func Test_To(t *testing.T) {
 	})
 	t.Run("ToInt16", func(t *testing.T) {
 		t.Run("ToInt16 - success", func(t *testing.T) {
-			res, err := lambda.New(int16(1)).ToInt16()
+			res, err := lambda.New(int16(int16(1))).ToInt16()
 			as.Nil(err)
 			as.Equal(int16(int16(1)), res)
 		})
@@ -68,7 +68,7 @@ func Test_To(t *testing.T) {
 	})
 	t.Run("ToInt32", func(t *testing.T) {
 		t.Run("ToInt32 - success", func(t *testing.T) {
-			res, err := lambda.New(int32(1)).ToInt32()
+			res, err := lambda.New(int32(int32(1))).ToInt32()
 			as.Nil(err)
 			as.Equal(int32(int32(1)), res)
 		})
@@ -86,7 +86,7 @@ func Test_To(t *testing.T) {
 	})
 	t.Run("ToInt64", func(t *testing.T) {
 		t.Run("ToInt64 - success", func(t *testing.T) {
-			res, err := lambda.New(int64(1)).ToInt64()
+			res, err := lambda.New(int64(int64(1))).ToInt64()
 			as.Nil(err)
 			as.Equal(int64(int64(1)), res)
 		})
@@ -104,7 +104,7 @@ func Test_To(t *testing.T) {
 	})
 	t.Run("ToUint", func(t *testing.T) {
 		t.Run("ToUint - success", func(t *testing.T) {
-			res, err := lambda.New(uint(1)).ToUint()
+			res, err := lambda.New(uint(uint(1))).ToUint()
 			as.Nil(err)
 			as.Equal(uint(uint(1)), res)
 		})
@@ -122,7 +122,7 @@ func Test_To(t *testing.T) {
 	})
 	t.Run("ToUint8", func(t *testing.T) {
 		t.Run("ToUint8 - success", func(t *testing.T) {
-			res, err := lambda.New(uint8(1)).ToUint8()
+			res, err := lambda.New(uint8(uint8(1))).ToUint8()
 			as.Nil(err)
 			as.Equal(uint8(uint8(1)), res)
 		})
@@ -140,7 +140,7 @@ func Test_To(t *testing.T) {
 	})
 	t.Run("ToUint16", func(t *testing.T) {
 		t.Run("ToUint16 - success", func(t *testing.T) {
-			res, err := lambda.New(uint16(1)).ToUint16()
+			res, err := lambda.New(uint16(uint16(1))).ToUint16()
 			as.Nil(err)
 			as.Equal(uint16(uint16(1)), res)
 		})
@@ -158,7 +158,7 @@ func Test_To(t *testing.T) {
 	})
 	t.Run("ToUint32", func(t *testing.T) {
 		t.Run("ToUint32 - success", func(t *testing.T) {
-			res, err := lambda.New(uint32(1)).ToUint32()
+			res, err := lambda.New(uint32(uint32(1))).ToUint32()
 			as.Nil(err)
 			as.Equal(uint32(uint32(1)), res)
 		})
@@ -176,7 +176,7 @@ func Test_To(t *testing.T) {
 	})
 	t.Run("ToUint64", func(t *testing.T) {
 		t.Run("ToUint64 - success", func(t *testing.T) {
-			res, err := lambda.New(uint64(1)).ToUint64()
+			res, err := lambda.New(uint64(uint64(1))).ToUint64()
 			as.Nil(err)
 			as.Equal(uint64(uint64(1)), res)
 		})
@@ -194,7 +194,7 @@ func Test_To(t *testing.T) {
 	})
 	t.Run("ToFloat32", func(t *testing.T) {
 		t.Run("ToFloat32 - success", func(t *testing.T) {
-			res, err := lambda.New(float32(1)).ToFloat32()
+			res, err := lambda.New(float32(float32(1))).ToFloat32()
 			as.Nil(err)
 			as.Equal(float32(float32(1)), res)
 		})
@@ -212,7 +212,7 @@ func Test_To(t *testing.T) {
 	})
 	t.Run("ToFloat64", func(t *testing.T) {
 		t.Run("ToFloat64 - success", func(t *testing.T) {
-			res, err := lambda.New(float64(1)).ToFloat64()
+			res, err := lambda.New(float64(float64(1))).ToFloat64()
 			as.Nil(err)
 			as.Equal(float64(float64(1)), res)
 		})
@@ -230,7 +230,7 @@ func Test_To(t *testing.T) {
 	})
 	t.Run("ToBool", func(t *testing.T) {
 		t.Run("ToBool - success", func(t *testing.T) {
-			res, err := lambda.New(bool(1)).ToBool()
+			res, err := lambda.New(bool(true)).ToBool()
 			as.Nil(err)
 			as.Equal(bool(true), res)
 		})
@@ -248,7 +248,7 @@ func Test_To(t *testing.T) {
 	})
 	t.Run("ToComplex64", func(t *testing.T) {
 		t.Run("ToComplex64 - success", func(t *testing.T) {
-			res, err := lambda.New(complex64(1)).ToComplex64()
+			res, err := lambda.New(complex64(complex64(1))).ToComplex64()
 			as.Nil(err)
 			as.Equal(complex64(complex64(1)), res)
 		})
@@ -266,7 +266,7 @@ func Test_To(t *testing.T) {
 	})
 	t.Run("ToComplex128", func(t *testing.T) {
 		t.Run("ToComplex128 - success", func(t *testing.T) {
-			res, err := lambda.New(complex128(1)).ToComplex128()
+			res, err := lambda.New(complex128(complex128(1))).ToComplex128()
 			as.Nil(err)
 			as.Equal(complex128(complex128(1)), res)
 		})
