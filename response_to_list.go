@@ -1,104 +1,110 @@
 package lambda
 
 import (
-	"fmt"
-
 	"github.com/chyroc/go-lambda/internal"
 )
 
-func (r *Object) ToStringList() (res []string, err error) {
-	transfer := func(idx int, item interface{}) error {
-		res = append(res, fmt.Sprintf("%s", item))
-		return nil
+func (r *Object) ToIntSlice() ([]int, error) {
+	if r.err != nil {
+		return nil, r.err
 	}
-
-	if err = r.eachArray(transfer); err != nil {
-		return nil, err
-	}
-	return res, nil
+	return internal.ToIntSlice(r.obj)
 }
 
-func (r *Object) ToIntList() (res []int, err error) {
-	transfer := func(idx int, item interface{}) error {
-		v, err := internal.ToInt(item)
-		if err != nil {
-			return err
-		}
-		res = append(res, v)
-		return nil
+func (r *Object) ToInt8Slice() ([]int8, error) {
+	if r.err != nil {
+		return nil, r.err
 	}
-
-	if err = r.eachArray(transfer); err != nil {
-		return nil, err
-	}
-	return res, nil
+	return internal.ToInt8Slice(r.obj)
 }
 
-func (r *Object) ToBoolList() (res []bool, err error) {
-	transfer := func(idx int, item interface{}) error {
-		v, ok := item.(bool)
-		if !ok {
-			return fmt.Errorf("%T is not bool", item)
-		}
-		res = append(res, v)
-		return nil
+func (r *Object) ToInt16Slice() ([]int16, error) {
+	if r.err != nil {
+		return nil, r.err
 	}
-
-	if err = r.eachArray(transfer); err != nil {
-		return nil, err
-	}
-	return res, nil
+	return internal.ToInt16Slice(r.obj)
 }
 
-func (r *Object) ToInterfaceList() (res []interface{}, err error) {
-	transfer := func(idx int, item interface{}) error {
-		v, ok := item.(interface{})
-		if !ok {
-			return fmt.Errorf("%T is not interface{}", item)
-		}
-		res = append(res, v)
-		return nil
+func (r *Object) ToInt32Slice() ([]int32, error) {
+	if r.err != nil {
+		return nil, r.err
 	}
-
-	if err = r.eachArray(transfer); err != nil {
-		return nil, err
-	}
-	return res, nil
+	return internal.ToInt32Slice(r.obj)
 }
 
-func (r *Object) ToIntListList() (res [][]int, err error) {
-	transfer := func(idx int, item interface{}) error {
-		resp, err := internal.ToIntSlice(item)
-		if err != nil {
-			return err
-		}
-		res = append(res, resp)
-		return nil
+func (r *Object) ToInt64Slice() ([]int64, error) {
+	if r.err != nil {
+		return nil, r.err
 	}
-
-	if err = r.eachArray(transfer); err != nil {
-		return nil, err
-	}
-	return res, nil
+	return internal.ToInt64Slice(r.obj)
 }
 
-func (r *Object) ToMapInt2Float64List() (res map[int][]float64, err error) {
-	res = map[int][]float64{}
-	transfer := func(key, val interface{}) error {
-		k, err := internal.ToInt(key)
-		if err != nil {
-			return err
-		}
-		v, err := internal.ToFloat64Slice(val)
-		if err != nil {
-			return err
-		}
-		res[k] = v
-		return nil
+func (r *Object) ToUintSlice() ([]uint, error) {
+	if r.err != nil {
+		return nil, r.err
 	}
+	return internal.ToUintSlice(r.obj)
+}
 
-	if err = r.eachMap(transfer); err != nil {
-		return nil, err
+func (r *Object) ToUint8Slice() ([]uint8, error) {
+	if r.err != nil {
+		return nil, r.err
 	}
-	return res, nil
+	return internal.ToUint8Slice(r.obj)
+}
+
+func (r *Object) ToUint16Slice() ([]uint16, error) {
+	if r.err != nil {
+		return nil, r.err
+	}
+	return internal.ToUint16Slice(r.obj)
+}
+
+func (r *Object) ToUint32Slice() ([]uint32, error) {
+	if r.err != nil {
+		return nil, r.err
+	}
+	return internal.ToUint32Slice(r.obj)
+}
+
+func (r *Object) ToUint64Slice() ([]uint64, error) {
+	if r.err != nil {
+		return nil, r.err
+	}
+	return internal.ToUint64Slice(r.obj)
+}
+
+func (r *Object) ToFloat32Slice() ([]float32, error) {
+	if r.err != nil {
+		return nil, r.err
+	}
+	return internal.ToFloat32Slice(r.obj)
+}
+
+func (r *Object) ToFloat64Slice() ([]float64, error) {
+	if r.err != nil {
+		return nil, r.err
+	}
+	return internal.ToFloat64Slice(r.obj)
+}
+
+func (r *Object) ToBoolSlice() ([]bool, error) {
+	if r.err != nil {
+		return nil, r.err
+	}
+	return internal.ToBoolSlice(r.obj)
+}
+
+func (r *Object) ToComplex64Slice() ([]complex64, error) {
+	if r.err != nil {
+		return nil, r.err
+	}
+	return internal.ToComplex64Slice(r.obj)
+}
+
+func (r *Object) ToComplex128Slice() ([]complex128, error) {
+	if r.err != nil {
+		return nil, r.err
+	}
+	return internal.ToComplex128Slice(r.obj)
 }

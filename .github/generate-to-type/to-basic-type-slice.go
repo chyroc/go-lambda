@@ -149,18 +149,64 @@ import (
 	"github.com/chyroc/go-lambda/internal"
 )
 
-{{range .ToTypeReqs}}func (r *Object) To{{.TypeTitle}}() ({{.Type}}, error) {
+{{range .ToTypeReqs}}func (r *Object) To{{.TypeTitle}}Slice() ([]{{.Type}}, error) {
 	if r.err != nil {
-		return {{.ZeroVal}}, r.err
+		return nil, r.err
 	}
-	return internal.To{{.TypeTitle}}(r.obj)
+	return internal.To{{.TypeTitle}}Slice(r.obj)
 }
 {{end}}
 `
 	data := map[string]interface{}{
 		"ToTypeReqs": toTypeReqs,
 	}
-	return r.BuildTemplate(tem, data)
+	return internal.BuildTemplate(tem, data)
+}
+
+func (r *GenerateBasicTypeSlice) GenerateToTypeSliceObjectTest(toTypeReqs []*internal.ToTypeReq) (string, error) {
+	tem := `package lambda_test
+
+import (
+	"fmt"
+	"testing"
+
+	"github.com/chyroc/go-lambda"
+	"github.com/stretchr/testify/assert"
+)
+
+type itemSlice struct{}
+
+func Test_ToBasicSlice(t *testing.T) {
+	anyVal := itemSlice{}
+	as := assert.New(t)
+
+{{range	$idx, $val := .ToTypeReqs}}t.Run("To{{$val.TypeTitle}}Slice", func(t *testing.T) {
+{{range .TestCases}}{{ if .Want}}
+		t.Run("success - {{.Args}}", func(t *testing.T) {
+			res, err := lambda.New({{.ArgsLite}}).To{{$val.TypeTitle}}Slice()
+			as.Nil(err)
+			as.Equal({{.Want}}, res)
+		})
+{{end}}
+{{end}}
+		t.Run("fail-1", func(t *testing.T) {
+			_, err := lambda.New(anyVal).To{{$val.TypeTitle}}Slice()
+			as.NotNil(err)
+			as.Contains(err.Error(), "can't convert")
+		})
+
+		t.Run("fail-2", func(t *testing.T) {
+			_, err := lambda.New(nil).WithErr(fmt.Errorf("er")).To{{$val.TypeTitle}}Slice()
+			as.NotNil(err)
+		})
+	})
+{{end}}
+}
+`
+	data := map[string]interface{}{
+		"ToTypeReqs": toTypeReqs,
+	}
+	return internal.BuildTemplate(tem, data)
 }
 
 var BasicToTypeListReqs = []*internal.ToTypeReq{
