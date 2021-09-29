@@ -335,6 +335,39 @@ func ToUint64Slice(v interface{}) (resp []uint64, err error) {
 	}
 }
 
+func ToUintptrSlice(v interface{}) (resp []uintptr, err error) {
+	switch v := v.(type) {
+	case []uintptr:
+		return v, nil
+	case []interface{}:
+		for _, vv := range v {
+			vvv, err := ToUintptr(vv)
+			if err != nil {
+				return nil, err
+			}
+			resp = append(resp, vvv)
+		}
+		return resp, nil
+	default:
+		vv := reflect.ValueOf(v)
+		catchErr := false
+		if vv.Kind() == reflect.Array {
+			for i := 0; i < vv.Len(); i++ {
+				ii, err := ToUintptr(vv.Index(i).Interface())
+				if err != nil {
+					catchErr = true
+					break
+				}
+				resp = append(resp, ii)
+			}
+			if !catchErr {
+				return resp, nil
+			}
+		}
+		return nil, fmt.Errorf("%v(%T) can't convert to []uintptr", v, v)
+	}
+}
+
 func ToFloat32Slice(v interface{}) (resp []float32, err error) {
 	switch v := v.(type) {
 	case []float32:

@@ -185,6 +185,24 @@ func ToUint64Array(v interface{}) (interface{}, error) {
 	return vtt.Interface(), nil
 }
 
+func ToUintptrArray(v interface{}) (interface{}, error) {
+	arr, err := ToInterfaceList(v)
+	if err != nil {
+		return nil, err
+	}
+
+	length := len(arr)
+	vtt := reflect.New(reflect.ArrayOf(length, reflect.TypeOf(uintptr(0)))).Elem()
+	for i := 0; i < length; i++ {
+		ii, err := ToUintptr(arr[i])
+		if err != nil {
+			return nil, fmt.Errorf("%v(%T) can't convert to [%d]uintptr", v, v, length)
+		}
+		vtt.Index(i).Set(reflect.ValueOf(ii))
+	}
+	return vtt.Interface(), nil
+}
+
 func ToFloat32Array(v interface{}) (interface{}, error) {
 	arr, err := ToInterfaceList(v)
 	if err != nil {

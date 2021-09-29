@@ -316,6 +316,37 @@ func Test_ToUint64Array(t *testing.T) {
 	}
 }
 
+func Test_ToUintptrArray(t *testing.T) {
+	as := assert.New(t)
+
+	tests := []struct {
+		name       string
+		args       interface{}
+		want       interface{}
+		errContain string
+	}{
+		{name: "ToUintptrArray - []uintptr{uintptr(1)}", args: []uintptr{uintptr(1)}, want: [1]uintptr{uintptr(1)}},
+		{name: "ToUintptrArray - []interface{}{uintptr(1)}", args: []interface{}{uintptr(1)}, want: [1]uintptr{uintptr(1)}},
+		{name: "ToUintptrArray - [2]uintptr{uintptr(1), uintptr(1)}", args: [2]uintptr{uintptr(1), uintptr(1)}, want: [2]uintptr{uintptr(1), uintptr(1)}},
+		{name: "ToUintptrArray - [2]interface{}{uintptr(1), uintptr(1)}", args: [2]interface{}{uintptr(1), uintptr(1)}, want: [2]uintptr{uintptr(1), uintptr(1)}},
+		{name: "ToUintptrArray - int(1)", args: int(1), errContain: "can't convert"},
+		{name: "ToUintptrArray - []string{-str-}", args: []string{"str"}, errContain: "can't convert"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := ToUintptrArray(tt.args)
+			if tt.errContain != "" {
+				as.NotNil(err, tt.name)
+				as.Contains(err.Error(), tt.errContain, tt.name)
+				return
+			}
+
+			as.Nil(err, tt.name)
+			as.Equal(tt.want, got, tt.name)
+		})
+	}
+}
+
 func Test_ToFloat32Array(t *testing.T) {
 	as := assert.New(t)
 

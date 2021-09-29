@@ -316,6 +316,37 @@ func Test_ToUint64Slice(t *testing.T) {
 	}
 }
 
+func Test_ToUintptrSlice(t *testing.T) {
+	as := assert.New(t)
+
+	tests := []struct {
+		name       string
+		args       interface{}
+		want       []uintptr
+		errContain string
+	}{
+		{name: "ToUintptrSlice - []uintptr{uintptr(1)}", args: []uintptr{uintptr(1)}, want: []uintptr{uintptr(1)}},
+		{name: "ToUintptrSlice - []interface{}{uintptr(1)}", args: []interface{}{uintptr(1)}, want: []uintptr{uintptr(1)}},
+		{name: "ToUintptrSlice - [2]uintptr{uintptr(1), uintptr(1)}", args: [2]uintptr{uintptr(1), uintptr(1)}, want: []uintptr{uintptr(1), uintptr(1)}},
+		{name: "ToUintptrSlice - [2]interface{}{uintptr(1), uintptr(1)}", args: [2]interface{}{uintptr(1), uintptr(1)}, want: []uintptr{uintptr(1), uintptr(1)}},
+		{name: "ToUintptrSlice - str", args: "str", errContain: "can't convert"},
+		{name: "ToUintptrSlice - []string{-str-}", args: []string{"str"}, errContain: "can't convert"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := ToUintptrSlice(tt.args)
+			if tt.errContain != "" {
+				as.NotNil(err, tt.name)
+				as.Contains(err.Error(), tt.errContain, tt.name)
+				return
+			}
+
+			as.Nil(err, tt.name)
+			as.Equal(tt.want, got, tt.name)
+		})
+	}
+}
+
 func Test_ToFloat32Slice(t *testing.T) {
 	as := assert.New(t)
 

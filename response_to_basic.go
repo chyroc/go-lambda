@@ -74,6 +74,13 @@ func (r *Object) ToUint64() (uint64, error) {
 	return internal.ToUint64(r.obj)
 }
 
+func (r *Object) ToUintptr() (uintptr, error) {
+	if r.err != nil {
+		return 0, r.err
+	}
+	return internal.ToUintptr(r.obj)
+}
+
 func (r *Object) ToFloat32() (float32, error) {
 	if r.err != nil {
 		return 0, r.err

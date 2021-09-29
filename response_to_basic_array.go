@@ -74,6 +74,13 @@ func (r *Object) ToUint64Array() (interface{}, error) {
 	return internal.ToUint64Array(r.obj)
 }
 
+func (r *Object) ToUintptrArray() (interface{}, error) {
+	if r.err != nil {
+		return nil, r.err
+	}
+	return internal.ToUintptrArray(r.obj)
+}
+
 func (r *Object) ToFloat32Array() (interface{}, error) {
 	if r.err != nil {
 		return nil, r.err

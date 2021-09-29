@@ -399,6 +399,23 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
 		},
 	},
+	{
+		Type:      "uintptr",
+		ZeroVal:   "0",
+		OneVal:    "uintptr(1)",
+		TypeTitle: "Uintptr",
+		TestCases: []*internal.TestCase{
+			// 1
+			{Args: "[]uintptr{uintptr(1)}", Want: "[]uintptr{uintptr(1)}"},
+			{Args: "[]interface{}{uintptr(1)}", Want: "[]uintptr{uintptr(1)}"},
+			{Args: "[2]uintptr{uintptr(1), uintptr(1)}", Want: "[]uintptr{uintptr(1), uintptr(1)}"},
+			{Args: "[2]interface{}{uintptr(1), uintptr(1)}", Want: "[]uintptr{uintptr(1), uintptr(1)}"},
+
+			// other type
+			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
+			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+		},
+	},
 
 	// float32
 	{

@@ -72,3 +72,32 @@ func (r *Object) ToList(resp interface{}) (err error) {
 	}
 	return nil
 }
+
+func (r *Object) To(expectVal interface{}) (interface{}, error) {
+	if r.err != nil {
+		return nil, r.err
+	}
+	vv := reflect.ValueOf(r.obj)
+	// vt := reflect.TypeOf(r.obj)
+	ev := reflect.ValueOf(expectVal)
+	et := reflect.TypeOf(expectVal)
+
+	if vv.CanConvert(et) {
+		return r.obj, nil
+	}
+	reflect.New(et)
+
+	switch ev.Kind() {
+	case reflect.Slice:
+	case reflect.Array:
+	case reflect.Interface:
+	case reflect.Ptr:
+	case reflect.Int:
+		resp, err := r.ToInt()
+		return resp, err
+	case reflect.Int8:
+		resp, err := r.ToInt8()
+		return resp, err
+	}
+	return nil, fmt.Errorf("%v(%T) can't convert to %s", r.obj, r.obj, et.Name())
+}

@@ -74,6 +74,13 @@ func (r *Object) ToUint64Slice() ([]uint64, error) {
 	return internal.ToUint64Slice(r.obj)
 }
 
+func (r *Object) ToUintptrSlice() ([]uintptr, error) {
+	if r.err != nil {
+		return nil, r.err
+	}
+	return internal.ToUintptrSlice(r.obj)
+}
+
 func (r *Object) ToFloat32Slice() ([]float32, error) {
 	if r.err != nil {
 		return nil, r.err

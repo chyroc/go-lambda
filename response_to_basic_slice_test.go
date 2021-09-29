@@ -374,6 +374,42 @@ func Test_ToBasicSlice(t *testing.T) {
 			as.NotNil(err)
 		})
 	})
+	t.Run("ToUintptrSlice", func(t *testing.T) {
+		t.Run("success - []uintptr{uintptr(1)}", func(t *testing.T) {
+			res, err := lambda.New([]uintptr{uintptr(1)}).ToUintptrSlice()
+			as.Nil(err)
+			as.Equal([]uintptr{uintptr(1)}, res)
+		})
+
+		t.Run("success - []interface{}{uintptr(1)}", func(t *testing.T) {
+			res, err := lambda.New([]interface{}{uintptr(1)}).ToUintptrSlice()
+			as.Nil(err)
+			as.Equal([]uintptr{uintptr(1)}, res)
+		})
+
+		t.Run("success - [2]uintptr{uintptr(1), uintptr(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]uintptr{uintptr(1), uintptr(1)}).ToUintptrSlice()
+			as.Nil(err)
+			as.Equal([]uintptr{uintptr(1), uintptr(1)}, res)
+		})
+
+		t.Run("success - [2]interface{}{uintptr(1), uintptr(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{uintptr(1), uintptr(1)}).ToUintptrSlice()
+			as.Nil(err)
+			as.Equal([]uintptr{uintptr(1), uintptr(1)}, res)
+		})
+
+		t.Run("fail-1", func(t *testing.T) {
+			_, err := lambda.New(anyVal).ToUintptrSlice()
+			as.NotNil(err)
+			as.Contains(err.Error(), "can't convert")
+		})
+
+		t.Run("fail-2", func(t *testing.T) {
+			_, err := lambda.New(nil).WithErr(fmt.Errorf("er")).ToUintptrSlice()
+			as.NotNil(err)
+		})
+	})
 	t.Run("ToFloat32Slice", func(t *testing.T) {
 		t.Run("success - []float32{float32(1)}", func(t *testing.T) {
 			res, err := lambda.New([]float32{float32(1)}).ToFloat32Slice()

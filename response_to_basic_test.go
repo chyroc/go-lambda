@@ -192,6 +192,24 @@ func Test_To(t *testing.T) {
 			as.NotNil(err)
 		})
 	})
+	t.Run("ToUintptr", func(t *testing.T) {
+		t.Run("ToUintptr - success", func(t *testing.T) {
+			res, err := lambda.New(uintptr(uintptr(1))).ToUintptr()
+			as.Nil(err)
+			as.Equal(uintptr(uintptr(1)), res)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, err := lambda.New(anyVal).ToUintptr()
+			as.NotNil(err)
+			as.Contains(err.Error(), "can't convert")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, err := lambda.New(nil).WithErr(fmt.Errorf("er")).ToUintptr()
+			as.NotNil(err)
+		})
+	})
 	t.Run("ToFloat32", func(t *testing.T) {
 		t.Run("ToFloat32 - success", func(t *testing.T) {
 			res, err := lambda.New(float32(float32(1))).ToFloat32()

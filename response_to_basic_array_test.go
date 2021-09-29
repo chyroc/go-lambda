@@ -374,6 +374,42 @@ func Test_ToBasicArray(t *testing.T) {
 			as.NotNil(err)
 		})
 	})
+	t.Run("ToUintptrArray", func(t *testing.T) {
+		t.Run("success - []uintptr{uintptr(1)}", func(t *testing.T) {
+			res, err := lambda.New([]uintptr{uintptr(1)}).ToUintptrArray()
+			as.Nil(err)
+			as.Equal([1]uintptr{uintptr(1)}, res)
+		})
+
+		t.Run("success - []interface{}{uintptr(1)}", func(t *testing.T) {
+			res, err := lambda.New([]interface{}{uintptr(1)}).ToUintptrArray()
+			as.Nil(err)
+			as.Equal([1]uintptr{uintptr(1)}, res)
+		})
+
+		t.Run("success - [2]uintptr{uintptr(1), uintptr(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]uintptr{uintptr(1), uintptr(1)}).ToUintptrArray()
+			as.Nil(err)
+			as.Equal([2]uintptr{uintptr(1), uintptr(1)}, res)
+		})
+
+		t.Run("success - [2]interface{}{uintptr(1), uintptr(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{uintptr(1), uintptr(1)}).ToUintptrArray()
+			as.Nil(err)
+			as.Equal([2]uintptr{uintptr(1), uintptr(1)}, res)
+		})
+
+		t.Run("fail-1", func(t *testing.T) {
+			_, err := lambda.New(anyVal).ToUintptrArray()
+			as.NotNil(err)
+			as.Contains(err.Error(), "can't convert")
+		})
+
+		t.Run("fail-2", func(t *testing.T) {
+			_, err := lambda.New(nil).WithErr(fmt.Errorf("er")).ToUintptrArray()
+			as.NotNil(err)
+		})
+	})
 	t.Run("ToFloat32Array", func(t *testing.T) {
 		t.Run("success - []float32{float32(1)}", func(t *testing.T) {
 			res, err := lambda.New([]float32{float32(1)}).ToFloat32Array()

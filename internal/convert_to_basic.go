@@ -40,6 +40,11 @@ func ToInt(v interface{}) (int, error) {
 			return int(v), nil
 		}
 		return 0, fmt.Errorf("%v(%T) overflow max int", v, v)
+	case uintptr:
+		if uint64(v) <= math.MaxInt {
+			return int(v), nil
+		}
+		return 0, fmt.Errorf("%v(%T) overflow max int", v, v)
 	default:
 		return 0, fmt.Errorf("%v(%T) can't convert to int", v, v)
 	}
@@ -95,6 +100,11 @@ func ToInt8(v interface{}) (int8, error) {
 			return int8(v), nil
 		}
 		return 0, fmt.Errorf("%v(%T) overflow max int8", v, v)
+	case uintptr:
+		if v <= math.MaxInt8 {
+			return int8(v), nil
+		}
+		return 0, fmt.Errorf("%v(%T) overflow max int8", v, v)
 	default:
 		return 0, fmt.Errorf("%v(%T) can't convert to int8", v, v)
 	}
@@ -144,6 +154,11 @@ func ToInt16(v interface{}) (int16, error) {
 			return int16(v), nil
 		}
 		return 0, fmt.Errorf("%v(%T) overflow max int16", v, v)
+	case uintptr:
+		if v <= math.MaxInt16 {
+			return int16(v), nil
+		}
+		return 0, fmt.Errorf("%v(%T) overflow max int16", v, v)
 	default:
 		return 0, fmt.Errorf("%v(%T) can't convert to int16", v, v)
 	}
@@ -187,6 +202,11 @@ func ToInt32(v interface{}) (int32, error) {
 			return int32(v), nil
 		}
 		return 0, fmt.Errorf("%v(%T) overflow max int32", v, v)
+	case uintptr:
+		if v <= math.MaxInt32 {
+			return int32(v), nil
+		}
+		return 0, fmt.Errorf("%v(%T) overflow max int32", v, v)
 	default:
 		return 0, fmt.Errorf("%v(%T) can't convert to int32", v, v)
 	}
@@ -221,6 +241,11 @@ func ToInt64(v interface{}) (int64, error) {
 			return int64(v), nil
 		}
 		return 0, fmt.Errorf("%v(%T) overflow max int64", v, v)
+	case uintptr:
+		if v <= math.MaxInt64 {
+			return int64(v), nil
+		}
+		return 0, fmt.Errorf("%v(%T) overflow max int64", v, v)
 	default:
 		return 0, fmt.Errorf("%v(%T) can't convert to int64", v, v)
 	}
@@ -251,6 +276,11 @@ func ToUint(v interface{}) (uint, error) {
 		}
 		return 0, fmt.Errorf("%v(%T) overflow max uint", v, v)
 	case uint64:
+		if uint64(v) <= math.MaxUint {
+			return uint(v), nil
+		}
+		return 0, fmt.Errorf("%v(%T) overflow max uint", v, v)
+	case uintptr:
 		if uint64(v) <= math.MaxUint {
 			return uint(v), nil
 		}
@@ -309,6 +339,11 @@ func ToUint8(v interface{}) (uint8, error) {
 			return uint8(v), nil
 		}
 		return 0, fmt.Errorf("%v(%T) overflow max uint8", v, v)
+	case uintptr:
+		if v <= math.MaxUint8 {
+			return uint8(v), nil
+		}
+		return 0, fmt.Errorf("%v(%T) overflow max uint8", v, v)
 	default:
 		return 0, fmt.Errorf("%v(%T) can't convert to uint8", v, v)
 	}
@@ -357,6 +392,11 @@ func ToUint16(v interface{}) (uint16, error) {
 			return uint16(v), nil
 		}
 		return 0, fmt.Errorf("%v(%T) overflow max uint16", v, v)
+	case uintptr:
+		if v <= math.MaxUint16 {
+			return uint16(v), nil
+		}
+		return 0, fmt.Errorf("%v(%T) overflow max uint16", v, v)
 	default:
 		return 0, fmt.Errorf("%v(%T) can't convert to uint16", v, v)
 	}
@@ -399,6 +439,11 @@ func ToUint32(v interface{}) (uint32, error) {
 			return uint32(v), nil
 		}
 		return 0, fmt.Errorf("%v(%T) overflow max uint32", v, v)
+	case uintptr:
+		if v <= math.MaxUint32 {
+			return uint32(v), nil
+		}
+		return 0, fmt.Errorf("%v(%T) overflow max uint32", v, v)
 	default:
 		return 0, fmt.Errorf("%v(%T) can't convert to uint32", v, v)
 	}
@@ -432,8 +477,43 @@ func ToUint64(v interface{}) (uint64, error) {
 			return uint64(v), nil
 		}
 		return 0, fmt.Errorf("%v(%T) overflow max uint64", v, v)
+	case uintptr:
+		if v <= math.MaxUint64 {
+			return uint64(v), nil
+		}
+		return 0, fmt.Errorf("%v(%T) overflow max uint64", v, v)
 	default:
 		return 0, fmt.Errorf("%v(%T) can't convert to uint64", v, v)
+	}
+}
+
+func ToUintptr(v interface{}) (uintptr, error) {
+	switch v := v.(type) {
+	case int:
+		return uintptr(v), nil
+	case int8:
+		return uintptr(v), nil
+	case int16:
+		return uintptr(v), nil
+	case int32:
+		return uintptr(v), nil
+	case int64:
+		return uintptr(v), nil
+	case uint:
+		return uintptr(v), nil
+	case uint8:
+		return uintptr(v), nil
+	case uint16:
+		return uintptr(v), nil
+	case uint32:
+		return uintptr(v), nil
+	case uint64:
+		return uintptr(v), nil
+	case uintptr:
+		return v, nil
+
+	default:
+		return 0, fmt.Errorf("%v(%T) can't convert to uintptr", v, v)
 	}
 }
 

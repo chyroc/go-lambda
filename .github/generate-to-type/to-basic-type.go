@@ -112,8 +112,8 @@ func (r *GenerateBasicType) GenerateToTypeTestCode(req *internal.ToTypeReq) (str
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := To{{.TypeTitle}}(tt.args)
 			if tt.errContain != "" {
-				as.NotNil(err, tt.name)
-				as.Contains(err.Error(), tt.errContain, tt.name)
+				as.NotNil(err, fmt.Sprintf("%s, got=%v", tt.name, got))
+				as.Contains(err.Error(), tt.errContain, fmt.Sprintf("%s, got=%v", tt.name, got))
 				return
 			}
 
@@ -148,6 +148,7 @@ func (r *GenerateBasicType) GenerateToTypeTestFile(toTypeFunctionTests []string)
 	tem := `package internal
 
 import (
+	"fmt"
 	"math"
 	"testing"
 
@@ -242,7 +243,7 @@ func Test_To(t *testing.T) {
 }
 
 var BasicToTypeReqs = []*internal.ToTypeReq{
-	// "int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64"
+	// "int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64", "uintptr"
 
 	// int
 	{
@@ -251,7 +252,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 		OneVal:              "int(1)",
 		MaxVal:              "math.MaxInt",
 		ConvertTypes:        []string{"int", "int8", "int16", "int32", "uint8", "uint16"},
-		OverflowTypes:       []string{"uint64", "uint", "int64", "uint32"},
+		OverflowTypes:       []string{"uint64", "uint", "int64", "uint32", "uintptr"},
 		GroupTypeMaxValType: "uint64",
 		TypeTitle:           "Int",
 		TestCases: []*internal.TestCase{
@@ -266,6 +267,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(1)", Want: "int(1)"},
 			{Args: "uint32(1)", Want: "int(1)"},
 			{Args: "uint64(1)", Want: "int(1)"},
+			{Args: "uintptr(1)", Want: "int(1)"},
 
 			// max
 			{Args: "int(math.MaxInt)", Want: "int(math.MaxInt)"},
@@ -278,6 +280,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(math.MaxUint16)", Want: "int(math.MaxUint16)"},
 			{Args: "uint32(math.MaxUint32)", Want: "int(math.MaxUint32)"},
 			{Args: "uint64(math.MaxUint64)", ErrContain: "overflow"},
+			{Args: "uintptr(math.MaxUint64)", ErrContain: "overflow"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -289,7 +292,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 		OneVal:        "int8(1)",
 		MaxVal:        "math.MaxInt8",
 		ConvertTypes:  []string{"int8"},
-		OverflowTypes: []string{"int", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64"},
+		OverflowTypes: []string{"int", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64", "uintptr"},
 		TypeTitle:     "Int8",
 		TestCases: []*internal.TestCase{
 			// 1
@@ -303,6 +306,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(1)", Want: "int8(1)"},
 			{Args: "uint32(1)", Want: "int8(1)"},
 			{Args: "uint64(1)", Want: "int8(1)"},
+			{Args: "uintptr(1)", Want: "int8(1)"},
 
 			// max
 			{Args: "int(math.MaxInt)", ErrContain: "overflow"},
@@ -315,6 +319,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(math.MaxUint16)", ErrContain: "overflow"},
 			{Args: "uint32(math.MaxUint32)", ErrContain: "overflow"},
 			{Args: "uint64(math.MaxUint64)", ErrContain: "overflow"},
+			{Args: "uintptr(math.MaxUint64)", ErrContain: "overflow"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -326,7 +331,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 		OneVal:        "int16(1)",
 		MaxVal:        "math.MaxInt16",
 		ConvertTypes:  []string{"int8", "int16", "uint8"},
-		OverflowTypes: []string{"int", "int32", "int64", "uint", "uint16", "uint32", "uint64"},
+		OverflowTypes: []string{"int", "int32", "int64", "uint", "uint16", "uint32", "uint64", "uintptr"},
 		TypeTitle:     "Int16",
 		TestCases: []*internal.TestCase{
 			// 1
@@ -340,6 +345,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(1)", Want: "int16(1)"},
 			{Args: "uint32(1)", Want: "int16(1)"},
 			{Args: "uint64(1)", Want: "int16(1)"},
+			{Args: "uintptr(1)", Want: "int16(1)"},
 
 			// max
 			{Args: "int(math.MaxInt)", ErrContain: "overflow"},
@@ -352,6 +358,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(math.MaxUint16)", ErrContain: "overflow"},
 			{Args: "uint32(math.MaxUint32)", ErrContain: "overflow"},
 			{Args: "uint64(math.MaxUint64)", ErrContain: "overflow"},
+			{Args: "uintptr(math.MaxUint64)", ErrContain: "overflow"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -363,7 +370,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 		OneVal:        "int32(1)",
 		MaxVal:        "math.MaxInt32",
 		ConvertTypes:  []string{"int8", "int16", "int32", "uint8", "uint16"},
-		OverflowTypes: []string{"int", "int64", "uint", "uint32", "uint64"},
+		OverflowTypes: []string{"int", "int64", "uint", "uint32", "uint64", "uintptr"},
 		TypeTitle:     "Int32",
 		TestCases: []*internal.TestCase{
 			// 1
@@ -377,6 +384,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(1)", Want: "int32(1)"},
 			{Args: "uint32(1)", Want: "int32(1)"},
 			{Args: "uint64(1)", Want: "int32(1)"},
+			{Args: "uintptr(1)", Want: "int32(1)"},
 
 			// max
 			{Args: "int(math.MaxInt)", ErrContain: "overflow"},
@@ -389,6 +397,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(math.MaxUint16)", Want: "int32(math.MaxUint16)"},
 			{Args: "uint32(math.MaxUint32)", ErrContain: "overflow"},
 			{Args: "uint64(math.MaxUint64)", ErrContain: "overflow"},
+			{Args: "uintptr(math.MaxUint64)", ErrContain: "overflow"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -400,7 +409,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 		OneVal:        "int64(1)",
 		MaxVal:        "math.MaxInt64",
 		ConvertTypes:  []string{"int", "int8", "int16", "int32", "int64", "uint8", "uint16", "uint32"},
-		OverflowTypes: []string{"uint", "uint64"},
+		OverflowTypes: []string{"uint", "uint64", "uintptr"},
 		TypeTitle:     "Int64",
 		TestCases: []*internal.TestCase{
 			// 1
@@ -414,6 +423,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(1)", Want: "int64(1)"},
 			{Args: "uint32(1)", Want: "int64(1)"},
 			{Args: "uint64(1)", Want: "int64(1)"},
+			{Args: "uintptr(1)", Want: "int64(1)"},
 
 			// max
 			{Args: "int(math.MaxInt)", Want: "int64(math.MaxInt)"},
@@ -426,6 +436,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(math.MaxUint16)", Want: "int64(math.MaxUint16)"},
 			{Args: "uint32(math.MaxUint32)", Want: "int64(math.MaxUint32)"},
 			{Args: "uint64(math.MaxUint64)", ErrContain: "overflow"},
+			{Args: "uintptr(math.MaxUint64)", ErrContain: "overflow"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -439,7 +450,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 		OneVal:              "uint(1)",
 		MaxVal:              "math.MaxUint",
 		ConvertTypes:        []string{"int", "int8", "int16", "int32", "uint", "uint8", "uint16", "uint32"},
-		OverflowTypes:       []string{"int64", "uint64"},
+		OverflowTypes:       []string{"int64", "uint64", "uintptr"},
 		GroupTypeMaxValType: "uint64",
 		TypeTitle:           "Uint",
 		TestCases: []*internal.TestCase{
@@ -454,6 +465,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(1)", Want: "uint(1)"},
 			{Args: "uint32(1)", Want: "uint(1)"},
 			{Args: "uint64(1)", Want: "uint(1)"},
+			{Args: "uintptr(1)", Want: "uint(1)"},
 
 			// max
 			{Args: "int(math.MaxInt)", Want: "uint(math.MaxInt)"},
@@ -466,6 +478,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(math.MaxUint16)", Want: "uint(math.MaxUint16)"},
 			{Args: "uint32(math.MaxUint32)", Want: "uint(math.MaxUint32)"},
 			{Args: "uint64(math.MaxUint64)", Want: "uint(math.MaxUint64)"},
+			{Args: "uintptr(math.MaxUint64)", Want: "uint(math.MaxUint64)"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -477,7 +490,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 		OneVal:        "uint8(1)",
 		MaxVal:        "math.MaxUint8",
 		ConvertTypes:  []string{"int8"},
-		OverflowTypes: []string{"int", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64"},
+		OverflowTypes: []string{"int", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64", "uintptr"},
 		TypeTitle:     "Uint8",
 		TestCases: []*internal.TestCase{
 			// 1
@@ -491,6 +504,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(1)", Want: "uint8(1)"},
 			{Args: "uint32(1)", Want: "uint8(1)"},
 			{Args: "uint64(1)", Want: "uint8(1)"},
+			{Args: "uintptr(1)", Want: "uint8(1)"},
 
 			// max
 			{Args: "int(math.MaxInt)", ErrContain: "overflow"},
@@ -503,6 +517,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(math.MaxUint16)", ErrContain: "overflow"},
 			{Args: "uint32(math.MaxUint32)", ErrContain: "overflow"},
 			{Args: "uint64(math.MaxUint64)", ErrContain: "overflow"},
+			{Args: "uintptr(math.MaxUint64)", ErrContain: "overflow"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -514,7 +529,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 		OneVal:        "uint16(1)",
 		MaxVal:        "math.MaxUint16",
 		ConvertTypes:  []string{"int8", "int16", "uint8"},
-		OverflowTypes: []string{"int", "int32", "int64", "uint", "uint16", "uint32", "uint64"},
+		OverflowTypes: []string{"int", "int32", "int64", "uint", "uint16", "uint32", "uint64", "uintptr"},
 		TypeTitle:     "Uint16",
 		TestCases: []*internal.TestCase{
 			// 1
@@ -528,6 +543,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(1)", Want: "uint16(1)"},
 			{Args: "uint32(1)", Want: "uint16(1)"},
 			{Args: "uint64(1)", Want: "uint16(1)"},
+			{Args: "uintptr(1)", Want: "uint16(1)"},
 
 			// max
 			{Args: "int(math.MaxInt)", ErrContain: "overflow"},
@@ -540,6 +556,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(math.MaxUint16)", Want: "uint16(math.MaxUint16)"},
 			{Args: "uint32(math.MaxUint32)", ErrContain: "overflow"},
 			{Args: "uint64(math.MaxUint64)", ErrContain: "overflow"},
+			{Args: "uintptr(math.MaxUint64)", ErrContain: "overflow"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -551,7 +568,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 		OneVal:        "uint32(1)",
 		MaxVal:        "math.MaxUint32",
 		ConvertTypes:  []string{"int8", "int16", "int32", "uint8", "uint16"},
-		OverflowTypes: []string{"int", "int64", "uint", "uint32", "uint64"},
+		OverflowTypes: []string{"int", "int64", "uint", "uint32", "uint64", "uintptr"},
 		TypeTitle:     "Uint32",
 		TestCases: []*internal.TestCase{
 			// 1
@@ -565,6 +582,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(1)", Want: "uint32(1)"},
 			{Args: "uint32(1)", Want: "uint32(1)"},
 			{Args: "uint64(1)", Want: "uint32(1)"},
+			{Args: "uintptr(1)", Want: "uint32(1)"},
 
 			// max
 			{Args: "int(math.MaxInt)", ErrContain: "overflow"},
@@ -577,6 +595,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(math.MaxUint16)", Want: "uint32(math.MaxUint16)"},
 			{Args: "uint32(math.MaxUint32)", Want: "uint32(math.MaxUint32)"},
 			{Args: "uint64(math.MaxUint64)", ErrContain: "overflow"},
+			{Args: "uintptr(math.MaxUint64)", ErrContain: "overflow"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -588,7 +607,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 		OneVal:        "uint64(1)",
 		MaxVal:        "math.MaxUint64",
 		ConvertTypes:  []string{"int", "int8", "int16", "int32", "int64", "uint8", "uint16", "uint32"},
-		OverflowTypes: []string{"uint", "uint64"},
+		OverflowTypes: []string{"uint", "uint64", "uintptr"},
 		TypeTitle:     "Uint64",
 		TestCases: []*internal.TestCase{
 			// 1
@@ -602,6 +621,7 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(1)", Want: "uint64(1)"},
 			{Args: "uint32(1)", Want: "uint64(1)"},
 			{Args: "uint64(1)", Want: "uint64(1)"},
+			{Args: "uintptr(1)", Want: "uint64(1)"},
 
 			// max
 			{Args: "int(math.MaxInt)", Want: "uint64(math.MaxInt)"},
@@ -614,6 +634,46 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 			{Args: "uint16(math.MaxUint16)", Want: "uint64(math.MaxUint16)"},
 			{Args: "uint32(math.MaxUint32)", Want: "uint64(math.MaxUint32)"},
 			{Args: "uint64(math.MaxUint64)", Want: "uint64(math.MaxUint64)"},
+			{Args: "uintptr(math.MaxUint64)", Want: "uint64(math.MaxUint64)"},
+
+			// other type
+			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
+		},
+	},
+	{
+		Type:          "uintptr",
+		ZeroVal:       "0",
+		OneVal:        "uintptr(1)",
+		MaxVal:        "math.MaxUint64",
+		ConvertTypes:  []string{"int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64", "uintptr"},
+		OverflowTypes: []string{},
+		TypeTitle:     "Uintptr",
+		TestCases: []*internal.TestCase{
+			// 1
+			{Args: "int(1)", Want: "uintptr(1)"},
+			{Args: "int8(1)", Want: "uintptr(1)"},
+			{Args: "int16(1)", Want: "uintptr(1)"},
+			{Args: "int32(1)", Want: "uintptr(1)"},
+			{Args: "int64(1)", Want: "uintptr(1)"},
+			{Args: "uint(1)", Want: "uintptr(1)"},
+			{Args: "uint8(1)", Want: "uintptr(1)"},
+			{Args: "uint16(1)", Want: "uintptr(1)"},
+			{Args: "uint32(1)", Want: "uintptr(1)"},
+			{Args: "uint64(1)", Want: "uintptr(1)"},
+			{Args: "uintptr(1)", Want: "uintptr(1)"},
+
+			// max
+			{Args: "int(math.MaxInt)", Want: "uintptr(math.MaxInt)"},
+			{Args: "int8(math.MaxInt8)", Want: "uintptr(math.MaxInt8)"},
+			{Args: "int16(math.MaxInt16)", Want: "uintptr(math.MaxInt16)"},
+			{Args: "int32(math.MaxInt32)", Want: "uintptr(math.MaxInt32)"},
+			{Args: "int64(math.MaxInt64)", Want: "uintptr(math.MaxInt64)"},
+			{Args: "uint(math.MaxUint)", Want: "uintptr(math.MaxUint)"},
+			{Args: "uint8(math.MaxUint8)", Want: "uintptr(math.MaxUint8)"},
+			{Args: "uint16(math.MaxUint16)", Want: "uintptr(math.MaxUint16)"},
+			{Args: "uint32(math.MaxUint32)", Want: "uintptr(math.MaxUint32)"},
+			{Args: "uint64(math.MaxUint64)", Want: "uintptr(math.MaxUint64)"},
+			{Args: "uintptr(math.MaxUint64)", Want: "uintptr(math.MaxUint64)"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
