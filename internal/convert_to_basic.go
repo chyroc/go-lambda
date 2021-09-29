@@ -294,6 +294,9 @@ func ToUint8(v interface{}) (uint8, error) {
 	switch v := v.(type) {
 	case int8:
 		return uint8(v), nil
+	case uint8:
+		return v, nil
+
 	case int:
 		if v <= math.MaxUint8 {
 			return uint8(v), nil
@@ -315,11 +318,6 @@ func ToUint8(v interface{}) (uint8, error) {
 		}
 		return 0, fmt.Errorf("%v(%T) overflow max uint8", v, v)
 	case uint:
-		if v <= math.MaxUint8 {
-			return uint8(v), nil
-		}
-		return 0, fmt.Errorf("%v(%T) overflow max uint8", v, v)
-	case uint8:
 		if v <= math.MaxUint8 {
 			return uint8(v), nil
 		}
@@ -357,6 +355,9 @@ func ToUint16(v interface{}) (uint16, error) {
 		return uint16(v), nil
 	case uint8:
 		return uint16(v), nil
+	case uint16:
+		return v, nil
+
 	case int:
 		if v <= math.MaxUint16 {
 			return uint16(v), nil
@@ -373,11 +374,6 @@ func ToUint16(v interface{}) (uint16, error) {
 		}
 		return 0, fmt.Errorf("%v(%T) overflow max uint16", v, v)
 	case uint:
-		if v <= math.MaxUint16 {
-			return uint16(v), nil
-		}
-		return 0, fmt.Errorf("%v(%T) overflow max uint16", v, v)
-	case uint16:
 		if v <= math.MaxUint16 {
 			return uint16(v), nil
 		}
@@ -414,6 +410,9 @@ func ToUint32(v interface{}) (uint32, error) {
 		return uint32(v), nil
 	case uint16:
 		return uint32(v), nil
+	case uint32:
+		return v, nil
+
 	case int:
 		if v <= math.MaxUint32 {
 			return uint32(v), nil
@@ -425,11 +424,6 @@ func ToUint32(v interface{}) (uint32, error) {
 		}
 		return 0, fmt.Errorf("%v(%T) overflow max uint32", v, v)
 	case uint:
-		if v <= math.MaxUint32 {
-			return uint32(v), nil
-		}
-		return 0, fmt.Errorf("%v(%T) overflow max uint32", v, v)
-	case uint32:
 		if v <= math.MaxUint32 {
 			return uint32(v), nil
 		}
@@ -461,27 +455,19 @@ func ToUint64(v interface{}) (uint64, error) {
 		return uint64(v), nil
 	case int64:
 		return uint64(v), nil
+	case uint:
+		return uint64(v), nil
 	case uint8:
 		return uint64(v), nil
 	case uint16:
 		return uint64(v), nil
 	case uint32:
 		return uint64(v), nil
-	case uint:
-		if v <= math.MaxUint64 {
-			return uint64(v), nil
-		}
-		return 0, fmt.Errorf("%v(%T) overflow max uint64", v, v)
 	case uint64:
-		if v <= math.MaxUint64 {
-			return uint64(v), nil
-		}
-		return 0, fmt.Errorf("%v(%T) overflow max uint64", v, v)
+		return v, nil
+
 	case uintptr:
-		if v <= math.MaxUint64 {
-			return uint64(v), nil
-		}
-		return 0, fmt.Errorf("%v(%T) overflow max uint64", v, v)
+		return uint64(v), nil
 	default:
 		return 0, fmt.Errorf("%v(%T) can't convert to uint64", v, v)
 	}

@@ -489,8 +489,8 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 		ZeroVal:       "0",
 		OneVal:        "uint8(1)",
 		MaxVal:        "math.MaxUint8",
-		ConvertTypes:  []string{"int8"},
-		OverflowTypes: []string{"int", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64", "uintptr"},
+		ConvertTypes:  []string{"int8", "uint8"},
+		OverflowTypes: []string{"int", "int16", "int32", "int64", "uint", "uint16", "uint32", "uint64", "uintptr"},
 		TypeTitle:     "Uint8",
 		TestCases: []*internal.TestCase{
 			// 1
@@ -528,8 +528,8 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 		ZeroVal:       "0",
 		OneVal:        "uint16(1)",
 		MaxVal:        "math.MaxUint16",
-		ConvertTypes:  []string{"int8", "int16", "uint8"},
-		OverflowTypes: []string{"int", "int32", "int64", "uint", "uint16", "uint32", "uint64", "uintptr"},
+		ConvertTypes:  []string{"int8", "int16", "uint8", "uint16"},
+		OverflowTypes: []string{"int", "int32", "int64", "uint", "uint32", "uint64", "uintptr"},
 		TypeTitle:     "Uint16",
 		TestCases: []*internal.TestCase{
 			// 1
@@ -567,8 +567,8 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 		ZeroVal:       "0",
 		OneVal:        "uint32(1)",
 		MaxVal:        "math.MaxUint32",
-		ConvertTypes:  []string{"int8", "int16", "int32", "uint8", "uint16"},
-		OverflowTypes: []string{"int", "int64", "uint", "uint32", "uint64", "uintptr"},
+		ConvertTypes:  []string{"int8", "int16", "int32", "uint8", "uint16", "uint32"},
+		OverflowTypes: []string{"int", "int64", "uint", "uint64", "uintptr"},
 		TypeTitle:     "Uint32",
 		TestCases: []*internal.TestCase{
 			// 1
@@ -606,8 +606,8 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 		ZeroVal:       "0",
 		OneVal:        "uint64(1)",
 		MaxVal:        "math.MaxUint64",
-		ConvertTypes:  []string{"int", "int8", "int16", "int32", "int64", "uint8", "uint16", "uint32"},
-		OverflowTypes: []string{"uint", "uint64", "uintptr"},
+		ConvertTypes:  []string{"int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64", "uintptr"},
+		OverflowTypes: []string{},
 		TypeTitle:     "Uint64",
 		TestCases: []*internal.TestCase{
 			// 1

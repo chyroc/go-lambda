@@ -20,28 +20,6 @@ func interfaceToInterfaceMap(v interface{}) (res map[interface{}]interface{}, er
 	return
 }
 
-func interfaceList2Int32List(vv []interface{}) (res []int32, err error) {
-	for _, v := range vv {
-		if vvv, ok := v.(int32); ok {
-			res = append(res, vvv)
-		} else {
-			return nil, fmt.Errorf("%T cannot convert to int32 of []int32", v)
-		}
-	}
-	return res, nil
-}
-
-func interfaceList2Uint8List(vv []interface{}) (res []uint8, err error) {
-	for _, v := range vv {
-		if vvv, ok := v.(uint8); ok {
-			res = append(res, vvv)
-		} else {
-			return nil, fmt.Errorf("%T cannot convert to uint8 of []uint8", v)
-		}
-	}
-	return res, nil
-}
-
 func (r *Object) clone(obj interface{}, err error) *Object {
 	if err != nil {
 		return &Object{
