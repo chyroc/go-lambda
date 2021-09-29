@@ -28,7 +28,7 @@ func Test_Err(t *testing.T) {
 		_, err = lambda.New(1).WithErr(fmt.Errorf("1")).ToString()
 		as.NotNil(err)
 		resp := []int{}
-		err = lambda.New(1).WithErr(fmt.Errorf("1")).ToList(&resp)
+		err = lambda.New(1).WithErr(fmt.Errorf("1")).ToObject(&resp)
 		as.NotNil(err)
 	})
 

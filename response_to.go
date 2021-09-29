@@ -28,7 +28,7 @@ func (r *Object) ToJoin(sep string) (string, error) {
 	return strings.Join(arr, sep), nil
 }
 
-func (r *Object) ToList(resp interface{}) (err error) {
+func (r *Object) ToObject(resp interface{}) (err error) {
 	if r.err != nil {
 		return r.err
 	}
@@ -51,6 +51,22 @@ func (r *Object) ToList(resp interface{}) (err error) {
 		respV.Set(reflect.Append(respV, objV))
 	}
 	return nil
+}
+
+func (r *Object) ToInterfaceSlice() (res []interface{}, err error) {
+	transfer := func(idx int, item interface{}) error {
+		v, ok := item.(interface{})
+		if !ok {
+			return fmt.Errorf("%T is not interface{}", item)
+		}
+		res = append(res, v)
+		return nil
+	}
+
+	if err = r.eachList(transfer); err != nil {
+		return nil, err
+	}
+	return res, nil
 }
 
 func (r *Object) ToExpectType(expectVal interface{}) (interface{}, error) {

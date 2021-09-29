@@ -41,11 +41,24 @@ func Test_ToList(t *testing.T) {
 				MapList(func(idx int, v interface{}) interface{} {
 					return &item{Name: v.(string)}
 				}).
-				ToList(&resp)
+				ToObject(&resp)
 			as.Nil(err)
 			as.Len(resp, 2)
 			as.Equal("1", resp[0].Name)
 			as.Equal("2", resp[1].Name)
+		})
+
+		t.Run("", func(t *testing.T) {
+			resp, err := lambda.
+				New([]string{"1", "2"}).
+				MapList(func(idx int, v interface{}) interface{} {
+					return &item{Name: v.(string)}
+				}).
+				ToExpectType([]*item{})
+			as.Nil(err)
+			as.Len(resp, 2)
+			as.Equal("1", resp.([]*item)[0].Name)
+			as.Equal("2", resp.([]*item)[1].Name)
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -55,7 +68,7 @@ func Test_ToList(t *testing.T) {
 				MapList(func(idx int, v interface{}) interface{} {
 					return &item{Name: v.(string)}
 				}).
-				ToList(resp)
+				ToObject(resp)
 			as.NotNil(err)
 			as.Equal("resp must be ptr", err.Error())
 		})
@@ -64,14 +77,14 @@ func Test_ToList(t *testing.T) {
 			resp := []*item{}
 			err := lambda.
 				New(123).
-				ToList(&resp)
+				ToObject(&resp)
 			as.NotNil(err)
 			as.Equal("123(int) can't convert to []interface", err.Error())
 		})
 		t.Run("", func(t *testing.T) {
 			err := lambda.
 				New([]string{"1"}).
-				ToList(ptr.Int(1))
+				ToObject(ptr.Int(1))
 			as.NotNil(err)
 			as.Equal("resp must be ptr of slice", err.Error())
 		})

@@ -14,7 +14,7 @@ func Test_chunk(t *testing.T) {
 		resp, err := lambda.
 			New([]int{1, 2, 3, 4, 5}).
 			Chunk(2).
-			ToIntListSlice()
+			ToExpectType([][]int{})
 		as.Nil(err)
 		as.Equal([][]int{{1, 2}, {3, 4}, {5}}, resp)
 	})
@@ -31,7 +31,7 @@ func Test_chunk(t *testing.T) {
 		_, err := lambda.
 			New(123).
 			Chunk(2).
-			ToIntListSlice()
+			ToExpectType([][]int{})
 		as.NotNil(err)
 		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
@@ -41,7 +41,7 @@ func Test_chunk(t *testing.T) {
 			New(123).
 			MapList(func(idx int, obj interface{}) interface{} { return obj }).
 			Chunk(2).
-			ToIntListSlice()
+			ToExpectType([][]int{})
 		as.NotNil(err)
 		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
