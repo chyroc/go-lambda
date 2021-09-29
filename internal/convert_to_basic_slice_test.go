@@ -17,6 +17,7 @@ func Test_ToIntSlice(t *testing.T) {
 	}{
 		{name: "ToIntSlice - []int{int(1)}", args: []int{int(1)}, want: []int{int(1)}},
 		{name: "ToIntSlice - []interface{}{int(1)}", args: []interface{}{int(1)}, want: []int{int(1)}},
+		{name: "ToIntSlice - [2]int{int(1), int(2)}", args: [2]int{int(1), int(2)}, want: []int{int(1), int(2)}},
 		{name: "ToIntSlice - str", args: "str", errContain: "can't convert"},
 		{name: "ToIntSlice - []string{-str-}", args: []string{"str"}, errContain: "can't convert"},
 	}
@@ -429,6 +430,35 @@ func Test_ToComplex128Slice(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := ToComplex128Slice(tt.args)
+			if tt.errContain != "" {
+				as.NotNil(err, tt.name)
+				as.Contains(err.Error(), tt.errContain, tt.name)
+				return
+			}
+
+			as.Nil(err, tt.name)
+			as.Equal(tt.want, got, tt.name)
+		})
+	}
+}
+
+func Test_ToStringSlice(t *testing.T) {
+	as := assert.New(t)
+
+	tests := []struct {
+		name       string
+		args       interface{}
+		want       []string
+		errContain string
+	}{
+		{name: "ToStringSlice - []string{-1-}", args: []string{"1"}, want: []string{"1"}},
+		{name: "ToStringSlice - []interface{}{-1-}", args: []interface{}{"1"}, want: []string{"1"}},
+		{name: "ToStringSlice - str", args: "str", errContain: "can't convert"},
+		{name: "ToStringSlice - []int{1}", args: []int{1}, errContain: "can't convert"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := ToStringSlice(tt.args)
 			if tt.errContain != "" {
 				as.NotNil(err, tt.name)
 				as.Contains(err.Error(), tt.errContain, tt.name)

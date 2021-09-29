@@ -15,7 +15,7 @@ func Test_uniq(t *testing.T) {
 			resp, err := lambda.
 				New([]int{0, 1, 0, 2, 1, 2}).
 				Uniq().
-				ToIntList()
+				ToIntSlice()
 			as.Nil(err)
 			as.Equal([]int{0, 1, 2}, resp)
 		})
@@ -24,7 +24,7 @@ func Test_uniq(t *testing.T) {
 	t.Run("uniq - not-change-self", func(t *testing.T) {
 		req := lambda.New([]int{0, 1, 2, 3, 2, 3})
 		req.Uniq()
-		res, err := req.ToIntList()
+		res, err := req.ToIntSlice()
 		as.Nil(err)
 		as.Equal([]int{0, 1, 2, 3, 2, 3}, res)
 	})
@@ -33,7 +33,7 @@ func Test_uniq(t *testing.T) {
 		_, err := lambda.
 			New(123).
 			Uniq().
-			ToIntList()
+			ToIntSlice()
 		as.NotNil(err)
 		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
@@ -43,7 +43,7 @@ func Test_uniq(t *testing.T) {
 			New(123).
 			MapArray(func(idx int, obj interface{}) interface{} { return obj }).
 			Uniq().
-			ToIntList()
+			ToIntSlice()
 		as.NotNil(err)
 		as.Equal("123(int) can't convert to []interface", err.Error())
 	})

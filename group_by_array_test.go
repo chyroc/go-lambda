@@ -37,7 +37,7 @@ func Test_groupByArray(t *testing.T) {
 				return 1
 			}
 		})
-		res, err := req.ToIntList()
+		res, err := req.ToIntSlice()
 		as.Nil(err)
 		as.Equal([]int{0, 1, 2, 3}, res)
 	})

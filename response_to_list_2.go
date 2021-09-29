@@ -6,50 +6,6 @@ import (
 	"github.com/chyroc/go-lambda/internal"
 )
 
-func (r *Object) ToStringList() (res []string, err error) {
-	transfer := func(idx int, item interface{}) error {
-		res = append(res, fmt.Sprintf("%s", item))
-		return nil
-	}
-
-	if err = r.eachArray(transfer); err != nil {
-		return nil, err
-	}
-	return res, nil
-}
-
-func (r *Object) ToIntList() (res []int, err error) {
-	transfer := func(idx int, item interface{}) error {
-		v, err := internal.ToInt(item)
-		if err != nil {
-			return err
-		}
-		res = append(res, v)
-		return nil
-	}
-
-	if err = r.eachArray(transfer); err != nil {
-		return nil, err
-	}
-	return res, nil
-}
-
-func (r *Object) ToBoolList() (res []bool, err error) {
-	transfer := func(idx int, item interface{}) error {
-		v, ok := item.(bool)
-		if !ok {
-			return fmt.Errorf("%T is not bool", item)
-		}
-		res = append(res, v)
-		return nil
-	}
-
-	if err = r.eachArray(transfer); err != nil {
-		return nil, err
-	}
-	return res, nil
-}
-
 func (r *Object) ToInterfaceList() (res []interface{}, err error) {
 	transfer := func(idx int, item interface{}) error {
 		v, ok := item.(interface{})

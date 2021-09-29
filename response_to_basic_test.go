@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_Tox(t *testing.T) {
+func Test_To(t *testing.T) {
 	anyVal := item{}
 	as := assert.New(t)
 
@@ -279,6 +279,24 @@ func Test_Tox(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, err := lambda.New(nil).WithErr(fmt.Errorf("er")).ToComplex128()
+			as.NotNil(err)
+		})
+	})
+	t.Run("ToString", func(t *testing.T) {
+		t.Run("ToString - success", func(t *testing.T) {
+			res, err := lambda.New(string("1")).ToString()
+			as.Nil(err)
+			as.Equal(string("1"), res)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, err := lambda.New(anyVal).ToString()
+			as.NotNil(err)
+			as.Contains(err.Error(), "can't convert")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, err := lambda.New(nil).WithErr(fmt.Errorf("er")).ToString()
 			as.NotNil(err)
 		})
 	})

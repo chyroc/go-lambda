@@ -22,7 +22,7 @@ func Test_Map(t *testing.T) {
 			resp, err := lambda.New(data).
 				MapArray(func(idx int, v interface{}) interface{} {
 					return v.(*item).Name
-				}).ToStringList()
+				}).ToStringSlice()
 			as.Nil(err)
 			as.Equal([]string{"a", "b"}, resp)
 		})
@@ -33,7 +33,7 @@ func Test_Map(t *testing.T) {
 			resp, err := lambda.New(data).
 				MapArrayAsync(func(idx int, v interface{}) interface{} {
 					return v.(*item).Name
-				}).ToStringList()
+				}).ToStringSlice()
 			as.Nil(err)
 			as.Equal([]string{"a", "b"}, resp)
 		})
@@ -44,7 +44,7 @@ func Test_Map(t *testing.T) {
 			resp, err := lambda.New(data).
 				MapArrayAsyncWithErr(func(idx int, v interface{}) (interface{}, error) {
 					return v.(*item).Name, nil
-				}).ToStringList()
+				}).ToStringSlice()
 			as.Nil(err)
 			as.Equal([]string{"a", "b"}, resp)
 		})
@@ -59,7 +59,7 @@ func Test_Map(t *testing.T) {
 					}).
 					MapArray(func(idx int, v interface{}) interface{} {
 						return v.(*item).Name
-					}).ToStringList()
+					}).ToStringSlice()
 				as.NotNil(err)
 				as.Equal("123(int) can't convert to []interface", err.Error())
 			})
@@ -68,7 +68,7 @@ func Test_Map(t *testing.T) {
 				_, err := lambda.New(123).
 					MapArray(func(idx int, v interface{}) interface{} {
 						return v.(*item).Name
-					}).ToStringList()
+					}).ToStringSlice()
 				as.NotNil(err)
 				as.Equal("123(int) can't convert to []interface", err.Error())
 			})
@@ -82,7 +82,7 @@ func Test_Map(t *testing.T) {
 					}).
 					MapArrayAsync(func(idx int, v interface{}) interface{} {
 						return v.(*item).Name
-					}).ToStringList()
+					}).ToStringSlice()
 				as.NotNil(err)
 				as.Equal("123(int) can't convert to []interface", err.Error())
 			})
@@ -91,7 +91,7 @@ func Test_Map(t *testing.T) {
 				_, err := lambda.New(123).
 					MapArrayAsync(func(idx int, v interface{}) interface{} {
 						return v.(*item).Name
-					}).ToStringList()
+					}).ToStringSlice()
 				as.NotNil(err)
 				as.Equal("123(int) can't convert to []interface", err.Error())
 			})
@@ -105,7 +105,7 @@ func Test_Map(t *testing.T) {
 					}).
 					MapArrayAsyncWithErr(func(idx int, v interface{}) (interface{}, error) {
 						return v.(*item).Name, nil
-					}).ToStringList()
+					}).ToStringSlice()
 				as.NotNil(err)
 				as.Equal("123(int) can't convert to []interface", err.Error())
 			})
@@ -114,7 +114,7 @@ func Test_Map(t *testing.T) {
 				_, err := lambda.New(123).
 					MapArrayAsyncWithErr(func(idx int, v interface{}) (interface{}, error) {
 						return v.(*item).Name, nil
-					}).ToStringList()
+					}).ToStringSlice()
 				as.NotNil(err)
 				as.Equal("123(int) can't convert to []interface", err.Error())
 			})
@@ -128,7 +128,7 @@ func Test_Map(t *testing.T) {
 				MapArray(func(idx int, v interface{}) interface{} {
 					time.Sleep(time.Second)
 					return v
-				}).ToStringList()
+				}).ToStringSlice()
 			as.Nil(err)
 			as.Equal([]string{"1", "2", "3"}, resp)
 			dur := time.Now().Sub(start).Seconds()
@@ -141,7 +141,7 @@ func Test_Map(t *testing.T) {
 				MapArrayAsync(func(idx int, v interface{}) interface{} {
 					time.Sleep(time.Second)
 					return v
-				}).ToStringList()
+				}).ToStringSlice()
 			as.Nil(err)
 			as.Equal([]string{"1", "2", "3"}, resp)
 			dur := time.Now().Sub(start).Seconds()
@@ -154,7 +154,7 @@ func Test_Map(t *testing.T) {
 				MapArrayAsyncWithErr(func(idx int, v interface{}) (interface{}, error) {
 					time.Sleep(time.Second)
 					return v, nil
-				}).ToStringList()
+				}).ToStringSlice()
 			as.Nil(err)
 			as.Equal([]string{"1", "2", "3"}, resp)
 			dur := time.Now().Sub(start).Seconds()

@@ -609,3 +609,32 @@ func TestToComplex128(t *testing.T) {
 		})
 	}
 }
+
+func TestToString(t *testing.T) {
+	as := assert.New(t)
+
+	tests := []struct {
+		name       string
+		args       interface{}
+		want       string
+		errContain string
+	}{
+		{name: "ToString - string(1)", args: string("1"), want: string("1")},
+		{name: "ToString - []rune(1)", args: []rune("1"), want: string("1")},
+		{name: "ToString - []byte(1)", args: []byte("1"), want: string("1")},
+		{name: "ToString - 1", args: 1, errContain: "can't convert"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := ToString(tt.args)
+			if tt.errContain != "" {
+				as.NotNil(err, tt.name)
+				as.Contains(err.Error(), tt.errContain, tt.name)
+				return
+			}
+
+			as.Nil(err, tt.name)
+			as.Equal(tt.want, got, tt.name)
+		})
+	}
+}

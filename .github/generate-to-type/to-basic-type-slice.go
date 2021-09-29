@@ -31,16 +31,16 @@ func main() {
 		panic(err)
 	}
 
-	if err := ioutil.WriteFile("internal/convert_to_slice.go", []byte(toTypeSliceFile), 0o666); err != nil {
+	if err := ioutil.WriteFile("internal/convert_to_basic_slice.go", []byte(toTypeSliceFile), 0o666); err != nil {
 		panic(err)
 	}
-	if err := ioutil.WriteFile("internal/convert_to_slice_test.go", []byte(toTypeSliceTestFile), 0o666); err != nil {
+	if err := ioutil.WriteFile("internal/convert_to_basic_slice_test.go", []byte(toTypeSliceTestFile), 0o666); err != nil {
 		panic(err)
 	}
-	if err := ioutil.WriteFile("response_to_list.go", []byte(toTypeSliceObjectFile), 0o666); err != nil {
+	if err := ioutil.WriteFile("response_to_basic_list.go", []byte(toTypeSliceObjectFile), 0o666); err != nil {
 		panic(err)
 	}
-	if err := ioutil.WriteFile("response_to_list_test.go", []byte(toTypeSliceObjectTestFile), 0o666); err != nil {
+	if err := ioutil.WriteFile("response_to_basic_list_test.go", []byte(toTypeSliceObjectTestFile), 0o666); err != nil {
 		panic(err)
 	}
 }
@@ -68,6 +68,21 @@ import (
 		}
 		return resp, nil
 	default:
+		vv := reflect.ValueOf(v)
+		catchErr := false
+		if vv.Kind() == reflect.Array {
+			for i := 0; i < vv.Len(); i++ {
+				ii, err := To{{.TypeTitle}}(vv.Index(i).Interface())
+				if err != nil {
+					catchErr = true
+					break
+				}
+				resp = append(resp, ii)
+			}
+			if !catchErr {
+				return resp, nil
+			}
+		}
 		return nil, fmt.Errorf("%v(%T) can't convert to []{{.Type}}", v, v)
 	}
 }
@@ -222,6 +237,7 @@ var BasicToTypeListReqs = []*internal.ToTypeReq{
 			// 1
 			{Args: "[]int{int(1)}", Want: "[]int{int(1)}"},
 			{Args: "[]interface{}{int(1)}", Want: "[]int{int(1)}"},
+			{Args: "[2]int{int(1), int(2)}", Want: "[]int{int(1), int(2)}"},
 
 			// other type
 			{Args: "str", ArgsType: `str`, ErrContain: "can't convert"},
@@ -237,6 +253,7 @@ var BasicToTypeListReqs = []*internal.ToTypeReq{
 			// 1
 			{Args: "[]int8{int8(1)}", Want: "[]int8{int8(1)}"},
 			{Args: "[]interface{}{int8(1)}", Want: "[]int8{int8(1)}"},
+			{Args: "[2]int8{int8(1), int8(2)}", Want: "[]int8{int8(1), int8(2)}"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -252,6 +269,7 @@ var BasicToTypeListReqs = []*internal.ToTypeReq{
 			// 1
 			{Args: "[]int16{int16(1)}", Want: "[]int16{int16(1)}"},
 			{Args: "[]interface{}{int16(1)}", Want: "[]int16{int16(1)}"},
+			{Args: "[2]int16{int16(1), int16(1)}", Want: "[]int16{int16(1), int16(1)}"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -267,6 +285,7 @@ var BasicToTypeListReqs = []*internal.ToTypeReq{
 			// 1
 			{Args: "[]int32{int32(1)}", Want: "[]int32{int32(1)}"},
 			{Args: "[]interface{}{int32(1)}", Want: "[]int32{int32(1)}"},
+			{Args: "[2]int32{int32(1), int32(1)}", Want: "[]int32{int32(1), int32(1)}"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -282,6 +301,7 @@ var BasicToTypeListReqs = []*internal.ToTypeReq{
 			// 1
 			{Args: "[]int64{int64(1)}", Want: "[]int64{int64(1)}"},
 			{Args: "[]interface{}{int64(1)}", Want: "[]int64{int64(1)}"},
+			{Args: "[2]int64{int64(1), int64(1)}", Want: "[]int64{int64(1), int64(1)}"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -297,6 +317,7 @@ var BasicToTypeListReqs = []*internal.ToTypeReq{
 			// 1
 			{Args: "[]uint{uint(1)}", Want: "[]uint{uint(1)}"},
 			{Args: "[]interface{}{uint(1)}", Want: "[]uint{uint(1)}"},
+			{Args: "[2]uint{uint(1), uint(1)}", Want: "[]uint{uint(1), uint(1)}"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -312,6 +333,7 @@ var BasicToTypeListReqs = []*internal.ToTypeReq{
 			// 1
 			{Args: "[]uint8{uint8(1)}", Want: "[]uint8{uint8(1)}"},
 			{Args: "[]interface{}{uint8(1)}", Want: "[]uint8{uint8(1)}"},
+			{Args: "[2]uint8{uint8(1), uint8(1)}", Want: "[]uint8{uint8(1), uint8(1)}"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -327,6 +349,7 @@ var BasicToTypeListReqs = []*internal.ToTypeReq{
 			// 1
 			{Args: "[]uint16{uint16(1)}", Want: "[]uint16{uint16(1)}"},
 			{Args: "[]interface{}{uint16(1)}", Want: "[]uint16{uint16(1)}"},
+			{Args: "[2]uint16{uint16(1), uint16(1)}", Want: "[]uint16{uint16(1), uint16(1)}"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -342,6 +365,7 @@ var BasicToTypeListReqs = []*internal.ToTypeReq{
 			// 1
 			{Args: "[]uint32{uint32(1)}", Want: "[]uint32{uint32(1)}"},
 			{Args: "[]interface{}{uint32(1)}", Want: "[]uint32{uint32(1)}"},
+			{Args: "[2]uint32{uint32(1), uint32(1)}", Want: "[]uint32{uint32(1), uint32(1)}"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -357,6 +381,7 @@ var BasicToTypeListReqs = []*internal.ToTypeReq{
 			// 1
 			{Args: "[]uint64{uint64(1)}", Want: "[]uint64{uint64(1)}"},
 			{Args: "[]interface{}{uint64(1)}", Want: "[]uint64{uint64(1)}"},
+			{Args: "[2]uint64{uint64(1), uint64(1)}", Want: "[]uint64{uint64(1), uint64(1)}"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -374,6 +399,7 @@ var BasicToTypeListReqs = []*internal.ToTypeReq{
 			// 1
 			{Args: "[]float32{float32(1)}", Want: "[]float32{float32(1)}"},
 			{Args: "[]interface{}{float32(1)}", Want: "[]float32{float32(1)}"},
+			{Args: "[2]float32{float32(1), float32(1)}", Want: "[]float32{float32(1), float32(1)}"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -389,6 +415,7 @@ var BasicToTypeListReqs = []*internal.ToTypeReq{
 			// 1
 			{Args: "[]float64{float64(1)}", Want: "[]float64{float64(1)}"},
 			{Args: "[]interface{}{float64(1)}", Want: "[]float64{float64(1)}"},
+			{Args: "[2]float64{float64(1), float64(1)}", Want: "[]float64{float64(1), float64(1)}"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -406,6 +433,7 @@ var BasicToTypeListReqs = []*internal.ToTypeReq{
 			// 1
 			{Args: "[]bool{bool(true)}", Want: "[]bool{bool(true)}"},
 			{Args: "[]interface{}{bool(true)}", Want: "[]bool{bool(true)}"},
+			{Args: "[2]bool{bool(true), bool(true)}", Want: "[]bool{bool(true), bool(true)}"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -423,6 +451,7 @@ var BasicToTypeListReqs = []*internal.ToTypeReq{
 			// 1
 			{Args: "[]complex64{complex64(1)}", Want: "[]complex64{complex64(1)}"},
 			{Args: "[]interface{}{complex64(1)}", Want: "[]complex64{complex64(1)}"},
+			{Args: "[2]complex64{complex64(1), complex64(1)}", Want: "[]complex64{complex64(1), complex64(1)}"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
@@ -438,10 +467,28 @@ var BasicToTypeListReqs = []*internal.ToTypeReq{
 			// 1
 			{Args: "[]complex128{complex128(1)}", Want: "[]complex128{complex128(1)}"},
 			{Args: "[]interface{}{complex128(1)}", Want: "[]complex128{complex128(1)}"},
+			{Args: "[2]complex128{complex128(1), complex128(1)}", Want: "[]complex128{complex128(1), complex128(1)}"},
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+		},
+	},
+
+	{
+		Type:      "string",
+		ZeroVal:   `""`,
+		OneVal:    `"1"`,
+		TypeTitle: "String",
+		TestCases: []*internal.TestCase{
+			// 1
+			{Args: `[]string{"1"}`, Want: `[]string{"1"}`},
+			{Args: `[]interface{}{"1"}`, Want: `[]string{"1"}`},
+			{Args: `[2]string{"1", "1"}`, Want: `[]string{"1", "2"}`},
+
+			// other type
+			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
+			{Args: `[]int{1}`, ErrContain: "can't convert"},
 		},
 	},
 }

@@ -27,6 +27,12 @@ func Test_ToBasicSlice(t *testing.T) {
 			as.Equal([]int{int(1)}, res)
 		})
 
+		t.Run("success - [2]int{int(1), int(2)}", func(t *testing.T) {
+			res, err := lambda.New([2]int{int(1), int(2)}).ToIntSlice()
+			as.Nil(err)
+			as.Equal([]int{int(1), int(2)}, res)
+		})
+
 		t.Run("fail-1", func(t *testing.T) {
 			_, err := lambda.New(anyVal).ToIntSlice()
 			as.NotNil(err)
@@ -371,6 +377,30 @@ func Test_ToBasicSlice(t *testing.T) {
 
 		t.Run("fail-2", func(t *testing.T) {
 			_, err := lambda.New(nil).WithErr(fmt.Errorf("er")).ToComplex128Slice()
+			as.NotNil(err)
+		})
+	})
+	t.Run("ToStringSlice", func(t *testing.T) {
+		t.Run("success - []string{-1-}", func(t *testing.T) {
+			res, err := lambda.New([]string{"1"}).ToStringSlice()
+			as.Nil(err)
+			as.Equal([]string{"1"}, res)
+		})
+
+		t.Run("success - []interface{}{-1-}", func(t *testing.T) {
+			res, err := lambda.New([]interface{}{"1"}).ToStringSlice()
+			as.Nil(err)
+			as.Equal([]string{"1"}, res)
+		})
+
+		t.Run("fail-1", func(t *testing.T) {
+			_, err := lambda.New(anyVal).ToStringSlice()
+			as.NotNil(err)
+			as.Contains(err.Error(), "can't convert")
+		})
+
+		t.Run("fail-2", func(t *testing.T) {
+			_, err := lambda.New(nil).WithErr(fmt.Errorf("er")).ToStringSlice()
 			as.NotNil(err)
 		})
 	})

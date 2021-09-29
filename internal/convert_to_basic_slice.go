@@ -2,6 +2,7 @@ package internal
 
 import (
 	"fmt"
+	"reflect"
 )
 
 func ToIntSlice(v interface{}) (resp []int, err error) {
@@ -18,6 +19,21 @@ func ToIntSlice(v interface{}) (resp []int, err error) {
 		}
 		return resp, nil
 	default:
+		vv := reflect.ValueOf(v)
+		catchErr := false
+		if vv.Kind() == reflect.Array {
+			for i := 0; i < vv.Len(); i++ {
+				ii, err := ToInt(vv.Index(i).Interface())
+				if err != nil {
+					catchErr = true
+					break
+				}
+				resp = append(resp, ii)
+			}
+			if !catchErr {
+				return resp, nil
+			}
+		}
 		return nil, fmt.Errorf("%v(%T) can't convert to []int", v, v)
 	}
 }
@@ -271,5 +287,23 @@ func ToComplex128Slice(v interface{}) (resp []complex128, err error) {
 		return resp, nil
 	default:
 		return nil, fmt.Errorf("%v(%T) can't convert to []complex128", v, v)
+	}
+}
+
+func ToStringSlice(v interface{}) (resp []string, err error) {
+	switch v := v.(type) {
+	case []string:
+		return v, nil
+	case []interface{}:
+		for _, vv := range v {
+			vvv, err := ToString(vv)
+			if err != nil {
+				return nil, err
+			}
+			resp = append(resp, vvv)
+		}
+		return resp, nil
+	default:
+		return nil, fmt.Errorf("%v(%T) can't convert to []string", v, v)
 	}
 }

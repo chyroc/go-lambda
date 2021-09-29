@@ -29,7 +29,7 @@ func Test_ToList(t *testing.T) {
 				Join("/")
 			as.Empty(resp)
 			as.NotNil(err)
-			as.Equal("123(int) can't convert to []interface", err.Error())
+			as.Equal("123(int) can't convert to []string", err.Error())
 		})
 	})
 

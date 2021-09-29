@@ -21,7 +21,7 @@ func (r *Object) Obj() (interface{}, error) {
 }
 
 func (r *Object) Join(sep string) (string, error) {
-	arr, err := r.ToStringList()
+	arr, err := r.ToStringSlice()
 	if err != nil {
 		return "", err
 	}

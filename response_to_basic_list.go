@@ -108,3 +108,10 @@ func (r *Object) ToComplex128Slice() ([]complex128, error) {
 	}
 	return internal.ToComplex128Slice(r.obj)
 }
+
+func (r *Object) ToStringSlice() ([]string, error) {
+	if r.err != nil {
+		return nil, r.err
+	}
+	return internal.ToStringSlice(r.obj)
+}

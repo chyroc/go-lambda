@@ -22,7 +22,7 @@ func Test_chunk(t *testing.T) {
 	t.Run("chunk - not-change-self", func(t *testing.T) {
 		req := lambda.New([]int{1, 2, 3, 4, 5})
 		req.Chunk(2)
-		res, err := req.ToIntList()
+		res, err := req.ToIntSlice()
 		as.Nil(err)
 		as.Equal([]int{1, 2, 3, 4, 5}, res)
 	})

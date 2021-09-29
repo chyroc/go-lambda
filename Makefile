@@ -5,4 +5,5 @@ generate:
 	( cd .github/generate-to-type && go build -o /tmp/to-basic-type-slice ./to-basic-type-slice.go )
 	/tmp/to-basic-type
 	/tmp/to-basic-type-slice
-	gofumpt -l -w . && go test ./internal/. # 基本类型
+	gofumpt -l -w .
+	go test ./...

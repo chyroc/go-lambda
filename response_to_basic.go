@@ -108,3 +108,10 @@ func (r *Object) ToComplex128() (complex128, error) {
 	}
 	return internal.ToComplex128(r.obj)
 }
+
+func (r *Object) ToString() (string, error) {
+	if r.err != nil {
+		return "", r.err
+	}
+	return internal.ToString(r.obj)
+}

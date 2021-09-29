@@ -15,7 +15,7 @@ func Test_compact(t *testing.T) {
 			resp, err := lambda.
 				New([]int{0, 1, 2}).
 				Compact().
-				ToIntList()
+				ToIntSlice()
 			as.Nil(err)
 			as.Equal([]int{1, 2}, resp)
 		})
@@ -23,7 +23,7 @@ func Test_compact(t *testing.T) {
 			resp, err := lambda.
 				New([]string{"", "x"}).
 				Compact().
-				ToStringList()
+				ToStringSlice()
 			as.Nil(err)
 			as.Equal([]string{"x"}, resp)
 		})
@@ -31,7 +31,7 @@ func Test_compact(t *testing.T) {
 			resp, err := lambda.
 				New([]bool{true, false, true}).
 				Compact().
-				ToBoolList()
+				ToBoolSlice()
 			as.Nil(err)
 			as.Equal([]bool{true, true}, resp)
 		})
@@ -48,7 +48,7 @@ func Test_compact(t *testing.T) {
 	t.Run("compact - not-change-self", func(t *testing.T) {
 		req := lambda.New([]int{0, 1, 2})
 		req.Compact()
-		res, err := req.ToIntList()
+		res, err := req.ToIntSlice()
 		as.Nil(err)
 		as.Equal([]int{0, 1, 2}, res)
 	})
@@ -57,7 +57,7 @@ func Test_compact(t *testing.T) {
 		_, err := lambda.
 			New(123).
 			Compact().
-			ToIntList()
+			ToIntSlice()
 		as.NotNil(err)
 		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
@@ -67,7 +67,7 @@ func Test_compact(t *testing.T) {
 			New(123).
 			MapArray(func(idx int, obj interface{}) interface{} { return obj }).
 			Compact().
-			ToIntList()
+			ToIntSlice()
 		as.NotNil(err)
 		as.Equal("123(int) can't convert to []interface", err.Error())
 	})

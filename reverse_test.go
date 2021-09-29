@@ -15,7 +15,7 @@ func Test_reverse(t *testing.T) {
 			resp, err := lambda.
 				New([]int{0, 1, 2}).
 				Reverse().
-				ToIntList()
+				ToIntSlice()
 			as.Nil(err)
 			as.Equal([]int{2, 1, 0}, resp)
 		})
@@ -24,7 +24,7 @@ func Test_reverse(t *testing.T) {
 	t.Run("reverse - not-change-self", func(t *testing.T) {
 		req := lambda.New([]int{0, 1, 2, 3})
 		req.Reverse()
-		res, err := req.ToIntList()
+		res, err := req.ToIntSlice()
 		as.Nil(err)
 		as.Equal([]int{0, 1, 2, 3}, res)
 	})
@@ -33,7 +33,7 @@ func Test_reverse(t *testing.T) {
 		_, err := lambda.
 			New(123).
 			Reverse().
-			ToIntList()
+			ToIntSlice()
 		as.NotNil(err)
 		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
@@ -43,7 +43,7 @@ func Test_reverse(t *testing.T) {
 			New(123).
 			MapArray(func(idx int, obj interface{}) interface{} { return obj }).
 			Reverse().
-			ToIntList()
+			ToIntSlice()
 		as.NotNil(err)
 		as.Equal("123(int) can't convert to []interface", err.Error())
 	})

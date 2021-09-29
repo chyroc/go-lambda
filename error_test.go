@@ -35,7 +35,7 @@ func Test_Err(t *testing.T) {
 	t.Run("err - not-change-self", func(t *testing.T) {
 		req := lambda.New([]int{0, 1, 2})
 		req.WithErr(fmt.Errorf("err"))
-		res, err := req.ToIntList()
+		res, err := req.ToIntSlice()
 		as.Nil(err)
 		as.Equal([]int{0, 1, 2}, res)
 	})

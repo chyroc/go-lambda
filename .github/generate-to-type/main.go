@@ -10,17 +10,6 @@ import (
 
 func main() {
 	res := []generateToTypeReq{}
-	// types := map[string]generateToTypeReq{}
-	//
-	// for typ, req := range types {
-	// 	text, err := generateToType(typ, req)
-	// 	assert(err)
-	// 	assert(ioutil.WriteFile(fmt.Sprintf("internal/convert_to_%s.go", typ), []byte(text), 0o666))
-	//
-	// 	textTest, err := generateToTypeTest(typ, req)
-	// 	assert(err)
-	// 	assert(ioutil.WriteFile(fmt.Sprintf("internal/convert_to_%s_test.go", typ), []byte(textTest), 0o666))
-	// }
 
 	res = append(res, convertCaseList([]string{"int", "int8", "int16", "int32", "int64"}, "0")...)
 	res = append(res, convertCaseList([]string{"uint", "uint8", "uint16", "uint32", "uint64"}, "0")...)
@@ -48,11 +37,11 @@ func convertCaseList(intTypes []string, defaultValue string) (res []generateToTy
 
 		text, err := generateToType(typ, req)
 		assert(err)
-		assert(ioutil.WriteFile(fmt.Sprintf("internal/convert_to_%s.go", typ), []byte(text), 0o666))
+		assert(ioutil.WriteFile(fmt.Sprintf("internal/convert_to_basic_%s.go", typ), []byte(text), 0o666))
 
 		textTest, err := generateToTypeTest(typ, req)
 		assert(err)
-		assert(ioutil.WriteFile(fmt.Sprintf("internal/convert_to_%s_test.go", typ), []byte(textTest), 0o666))
+		assert(ioutil.WriteFile(fmt.Sprintf("internal/convert_to_basic_%s_test.go", typ), []byte(textTest), 0o666))
 
 		res = append(res, req)
 	}

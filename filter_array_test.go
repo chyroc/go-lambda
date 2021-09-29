@@ -17,7 +17,7 @@ func Test_filterArray(t *testing.T) {
 				FilterArray(func(idx int, obj interface{}) bool {
 					return obj.(int)%2 == 0
 				}).
-				ToIntList()
+				ToIntSlice()
 			as.Nil(err)
 			as.Equal([]int{0, 2}, resp)
 		})
@@ -29,7 +29,7 @@ func Test_filterArray(t *testing.T) {
 			FilterArray(func(idx int, obj interface{}) bool {
 				return true
 			}).
-			ToIntList()
+			ToIntSlice()
 		as.NotNil(err)
 		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
@@ -41,7 +41,7 @@ func Test_filterArray(t *testing.T) {
 			FilterArray(func(idx int, obj interface{}) bool {
 				return true
 			}).
-			ToIntList()
+			ToIntSlice()
 		as.NotNil(err)
 		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
@@ -51,7 +51,7 @@ func Test_filterArray(t *testing.T) {
 		req.FilterArray(func(idx int, obj interface{}) bool {
 			return obj.(int)%2 == 0
 		})
-		res, err := req.ToIntList()
+		res, err := req.ToIntSlice()
 		as.Nil(err)
 		as.Equal([]int{0, 1, 2}, res)
 	})

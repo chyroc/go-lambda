@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"strings"
 	"text/template"
 
 	"github.com/chyroc/go-lambda/generate-code/internal"
@@ -47,16 +48,16 @@ func main() {
 		panic(err)
 	}
 
-	if err := ioutil.WriteFile("internal/convert_to.go", []byte(toTypeFile), 0o666); err != nil {
+	if err := ioutil.WriteFile("internal/convert_to_basic.go", []byte(toTypeFile), 0o666); err != nil {
 		panic(err)
 	}
-	if err := ioutil.WriteFile("internal/convert_to_test.go", []byte(toTypeTestFile), 0o666); err != nil {
+	if err := ioutil.WriteFile("internal/convert_to_basic_test.go", []byte(toTypeTestFile), 0o666); err != nil {
 		panic(err)
 	}
-	if err := ioutil.WriteFile("response_to.go", []byte(toLambdaObjFile), 0o666); err != nil {
+	if err := ioutil.WriteFile("response_to_basic.go", []byte(toLambdaObjFile), 0o666); err != nil {
 		panic(err)
 	}
-	if err := ioutil.WriteFile("response_to_test.go", []byte(toLambdaObjTestFile), 0o666); err != nil {
+	if err := ioutil.WriteFile("response_to_basic_test.go", []byte(toLambdaObjTestFile), 0o666); err != nil {
 		panic(err)
 	}
 }
@@ -68,8 +69,7 @@ func (r *GenerateBasicType) GenerateToTypeCode(req *internal.ToTypeReq) (string,
 	switch v := v.(type) {
 {{range .ConvertTypes}}	case {{.}}:
 {{if eq . $.Type}}		return v, nil
-{{else}}		return {{$.Type}}(v), nil
-{{end}}
+{{else}}		return {{$.Type}}(v), nil{{end}}
 {{end}}{{range .OverflowTypes}}	case {{.}}:
 {{if $.GroupTypeMaxValType}}		if {{$.GroupTypeMaxValType}}(v) <= {{$.MaxVal}}{
 			return {{$.Type}}(v), nil
@@ -93,6 +93,7 @@ func (r *GenerateBasicType) GenerateToTypeTestCode(req *internal.ToTypeReq) (str
 		} else {
 			v.ArgsLite = v.Args
 		}
+		v.Args = strings.ReplaceAll(v.Args, `"`, "")
 	}
 
 	tem := `func TestTo{{.TypeTitle}}(t *testing.T) {
@@ -710,6 +711,23 @@ var BasicToTypeReqs = []*internal.ToTypeReq{
 
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
+		},
+	},
+
+	{
+		Type:         "string",
+		ZeroVal:      `""`,
+		OneVal:       `"1"`,
+		ConvertTypes: []string{"[]rune", "[]byte", "string"},
+		TypeTitle:    "String",
+		TestCases: []*internal.TestCase{
+			// 1
+			{Args: `string("1")`, Want: `string("1")`},
+			{Args: `[]rune("1")`, Want: `string("1")`},
+			{Args: `[]byte("1")`, Want: `string("1")`},
+
+			// other type
+			{Args: "1", ErrContain: "can't convert"},
 		},
 	},
 }
