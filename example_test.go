@@ -20,7 +20,7 @@ func ExampleNew() {
 
 func ExampleObject_Chunk() {
 	// Split the list into shorter length lists
-	res, err := lambda.New([]int{1, 2, 3, 4, 5}).Chunk(2).ToIntListList()
+	res, err := lambda.New([]int{1, 2, 3, 4, 5}).Chunk(2).ToIntListSlice()
 	fmt.Println("err:", err)
 	fmt.Println("res:", res)
 	// output:

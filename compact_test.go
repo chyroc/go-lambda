@@ -39,7 +39,7 @@ func Test_compact(t *testing.T) {
 			resp, err := lambda.
 				New([]interface{}{1, nilInterface}).
 				Compact().
-				ToInterfaceList()
+				ToInterfaceSlice()
 			as.Nil(err)
 			as.Equal([]interface{}{1}, resp)
 		})

@@ -13,20 +13,20 @@ import (
 func main() {
 	cli := new(GenerateBasicTypeSlice)
 
-	toTypeSliceFile, err := cli.GenerateToTypeSlice(BasicToTypeListReqs)
+	toTypeSliceFile, err := cli.GenerateToTypeSlice(BasicToTypeSliceReqs)
 	if err != nil {
 		panic(err)
 	}
-	toTypeSliceTestFile, err := cli.GenerateToTypeSliceTest(BasicToTypeListReqs)
+	toTypeSliceTestFile, err := cli.GenerateToTypeSliceTest(BasicToTypeSliceReqs)
 	if err != nil {
 		panic(err)
 	}
 
-	toTypeSliceObjectFile, err := cli.GenerateToTypeSliceObject(BasicToTypeListReqs)
+	toTypeSliceObjectFile, err := cli.GenerateToTypeSliceObject(BasicToTypeSliceReqs)
 	if err != nil {
 		panic(err)
 	}
-	toTypeSliceObjectTestFile, err := cli.GenerateToTypeSliceObjectTest(BasicToTypeListReqs)
+	toTypeSliceObjectTestFile, err := cli.GenerateToTypeSliceObjectTest(BasicToTypeSliceReqs)
 	if err != nil {
 		panic(err)
 	}
@@ -37,10 +37,10 @@ func main() {
 	if err := ioutil.WriteFile("internal/convert_to_basic_slice_test.go", []byte(toTypeSliceTestFile), 0o666); err != nil {
 		panic(err)
 	}
-	if err := ioutil.WriteFile("response_to_basic_list.go", []byte(toTypeSliceObjectFile), 0o666); err != nil {
+	if err := ioutil.WriteFile("response_to_basic_slice.go", []byte(toTypeSliceObjectFile), 0o666); err != nil {
 		panic(err)
 	}
-	if err := ioutil.WriteFile("response_to_basic_list_test.go", []byte(toTypeSliceObjectTestFile), 0o666); err != nil {
+	if err := ioutil.WriteFile("response_to_basic_slice_test.go", []byte(toTypeSliceObjectTestFile), 0o666); err != nil {
 		panic(err)
 	}
 }
@@ -225,7 +225,7 @@ func Test_ToBasicSlice(t *testing.T) {
 	return internal.BuildTemplate(tem, data)
 }
 
-var BasicToTypeListReqs = []*internal.ToTypeReq{
+var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 	// "int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64"
 
 	// int

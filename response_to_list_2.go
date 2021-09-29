@@ -6,7 +6,7 @@ import (
 	"github.com/chyroc/go-lambda/internal"
 )
 
-func (r *Object) ToInterfaceList() (res []interface{}, err error) {
+func (r *Object) ToInterfaceSlice() (res []interface{}, err error) {
 	transfer := func(idx int, item interface{}) error {
 		v, ok := item.(interface{})
 		if !ok {
@@ -22,7 +22,7 @@ func (r *Object) ToInterfaceList() (res []interface{}, err error) {
 	return res, nil
 }
 
-func (r *Object) ToIntListList() (res [][]int, err error) {
+func (r *Object) ToIntListSlice() (res [][]int, err error) {
 	transfer := func(idx int, item interface{}) error {
 		resp, err := internal.ToIntSlice(item)
 		if err != nil {
@@ -38,7 +38,7 @@ func (r *Object) ToIntListList() (res [][]int, err error) {
 	return res, nil
 }
 
-func (r *Object) ToMapInt2Float64List() (res map[int][]float64, err error) {
+func (r *Object) ToMapInt2Float64Slice() (res map[int][]float64, err error) {
 	res = map[int][]float64{}
 	transfer := func(key, val interface{}) error {
 		k, err := internal.ToInt(key)

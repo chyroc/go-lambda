@@ -18,7 +18,7 @@ func Test_groupByArray(t *testing.T) {
 				GroupByArray(func(idx int, obj interface{}) interface{} {
 					return int(math.Ceil(obj.(float64))) // int(>= x)
 				}).
-				ToMapInt2Float64List()
+				ToMapInt2Float64Slice()
 			as.Nil(err)
 			as.Equal(map[int][]float64{
 				0: {0},
@@ -48,7 +48,7 @@ func Test_groupByArray(t *testing.T) {
 			GroupByArray(func(idx int, obj interface{}) interface{} {
 				return obj
 			}).
-			ToMapInt2Float64List()
+			ToMapInt2Float64Slice()
 		as.NotNil(err)
 		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
@@ -60,7 +60,7 @@ func Test_groupByArray(t *testing.T) {
 			GroupByArray(func(idx int, obj interface{}) interface{} {
 				return obj
 			}).
-			ToMapInt2Float64List()
+			ToMapInt2Float64Slice()
 		as.NotNil(err)
 		as.Equal("123(int) can't convert to []interface", err.Error())
 	})
