@@ -139,9 +139,7 @@ func toExpectTypeInterface(v interface{}, et reflect.Type) (resp interface{}, er
 		}
 		return vtt.Elem().Interface(), nil
 	case reflect.UnsafePointer:
-		panic("") // TODO
-	// resp, err := ToUnsafePointer(v)
-	// return resp, err
+		return nil, fmt.Errorf("%v(%T) can't convert to UnsafePointer", v, v)
 	default:
 		panic("unreachable")
 	}

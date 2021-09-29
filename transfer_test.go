@@ -25,7 +25,7 @@ func Test_Transfer(t *testing.T) {
 		return i%2 == 0
 	}).MapList(func(idx int, v interface{}) interface{} {
 		return v.(*item).Name
-	}).Obj()
+	}).ToObj()
 
 	as.Equal([]interface{}{"2"}, obj)
 	as.Nil(err)

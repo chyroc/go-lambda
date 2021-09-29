@@ -11,7 +11,7 @@ func Test_Flatten(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("出错", func(t *testing.T) {
-		as.NotNil(lambda.New(1).Flatten().Error())
+		as.NotNil(lambda.New(1).Flatten().ToError())
 	})
 
 	t.Run("没问题", func(t *testing.T) {
@@ -19,7 +19,7 @@ func Test_Flatten(t *testing.T) {
 		res, err := lambda.New([]string{"1", "2", "3"}).MapList(func(idx int, obj interface{}) interface{} {
 			x := obj.(string)
 			return []string{x, x}
-		}).Flatten().Join("")
+		}).Flatten().ToJoin("")
 		as.Nil(err)
 		as.Equal("112233", res)
 	})
@@ -32,7 +32,7 @@ func Test_Flatten(t *testing.T) {
 				return []string{x, x}
 			}
 			return x
-		}).Flatten().Join("")
+		}).Flatten().ToJoin("")
 		as.Nil(err)
 		as.Equal("1123", res)
 	})

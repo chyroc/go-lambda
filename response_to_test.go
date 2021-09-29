@@ -18,7 +18,7 @@ func Test_ToList(t *testing.T) {
 				FilterList(func(idx int, obj interface{}) bool {
 					return obj.(string) != "2"
 				}).
-				Join("/")
+				ToJoin("/")
 			as.Nil(err)
 			as.Equal("1/3", resp)
 		})
@@ -26,7 +26,7 @@ func Test_ToList(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			resp, err := lambda.
 				New(123).
-				Join("/")
+				ToJoin("/")
 			as.Empty(resp)
 			as.NotNil(err)
 			as.Equal("123(int) can't convert to []string", err.Error())
@@ -80,30 +80,8 @@ func Test_ToList(t *testing.T) {
 	t.Run("", func(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			resp, err := lambda.
-				New([]rune{'1', '2', '3'}).
-				FilterList(func(idx int, obj interface{}) bool {
-					return obj.(int32) != '2'
-				}).
-				String()
-			as.Nil(err)
-			as.Equal("13", resp)
-		})
-
-		t.Run("", func(t *testing.T) {
-			resp, err := lambda.
-				New([]byte("123")).
-				FilterList(func(idx int, obj interface{}) bool {
-					return obj.(uint8) != '2'
-				}).
-				String()
-			as.Nil(err)
-			as.Equal("13", resp)
-		})
-
-		t.Run("", func(t *testing.T) {
-			resp, err := lambda.
 				New("13").
-				String()
+				ToString()
 			as.Nil(err)
 			as.Equal("13", resp)
 		})
@@ -111,10 +89,10 @@ func Test_ToList(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			resp, err := lambda.
 				New(123).
-				String()
+				ToString()
 			as.Empty(resp)
 			as.NotNil(err)
-			as.Equal("int unsupport .String lambda operator", err.Error())
+			as.Contains(err.Error(), "can't convert to")
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -123,10 +101,10 @@ func Test_ToList(t *testing.T) {
 				MapList(func(idx int, v interface{}) interface{} {
 					return &item{Name: v.(string)}
 				}).
-				String()
+				ToString()
 			as.Empty(resp)
 			as.NotNil(err)
-			as.Equal("list of *lambda_test.item unsupport .String lambda operator", err.Error())
+			as.Contains(err.Error(), "can't convert to")
 		})
 	})
 }

@@ -13,19 +13,19 @@ func Test_Err(t *testing.T) {
 	var err error
 
 	t.Run("", func(t *testing.T) {
-		err := lambda.New(1).WithErr(fmt.Errorf("1")).Error()
+		err := lambda.New(1).WithErr(fmt.Errorf("1")).ToError()
 		as.NotNil(err)
 		as.Equal("1", err.Error())
 	})
 
 	t.Run("", func(t *testing.T) {
-		as.NotNil(lambda.New(1).WithErr(fmt.Errorf("1")).FilterList(nil).Error())
-		as.NotNil(lambda.New(1).WithErr(fmt.Errorf("1")).MapList(nil).Error())
-		as.NotNil(lambda.New(1).WithErr(fmt.Errorf("1")).MapArrayAsync(nil).Error())
-		as.NotNil(lambda.New(1).WithErr(fmt.Errorf("1")).MapArrayAsyncWithErr(nil).Error())
-		as.NotNil(lambda.New(1).WithErr(fmt.Errorf("1")).Transfer(nil).Error())
-		as.NotNil(lambda.New(1).WithErr(fmt.Errorf("1")).Flatten().Error())
-		_, err = lambda.New(1).WithErr(fmt.Errorf("1")).String()
+		as.NotNil(lambda.New(1).WithErr(fmt.Errorf("1")).FilterList(nil).ToError())
+		as.NotNil(lambda.New(1).WithErr(fmt.Errorf("1")).MapList(nil).ToError())
+		as.NotNil(lambda.New(1).WithErr(fmt.Errorf("1")).MapArrayAsync(nil).ToError())
+		as.NotNil(lambda.New(1).WithErr(fmt.Errorf("1")).MapArrayAsyncWithErr(nil).ToError())
+		as.NotNil(lambda.New(1).WithErr(fmt.Errorf("1")).Transfer(nil).ToError())
+		as.NotNil(lambda.New(1).WithErr(fmt.Errorf("1")).Flatten().ToError())
+		_, err = lambda.New(1).WithErr(fmt.Errorf("1")).ToString()
 		as.NotNil(err)
 		resp := []int{}
 		err = lambda.New(1).WithErr(fmt.Errorf("1")).ToList(&resp)
