@@ -33,6 +33,12 @@ func Test_ToBasicSlice(t *testing.T) {
 			as.Equal([]int{int(1), int(2)}, res)
 		})
 
+		t.Run("success - [2]interface{}{int(1), int(2)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{int(1), int(2)}).ToIntSlice()
+			as.Nil(err)
+			as.Equal([]int{int(1), int(2)}, res)
+		})
+
 		t.Run("fail-1", func(t *testing.T) {
 			_, err := lambda.New(anyVal).ToIntSlice()
 			as.NotNil(err)
@@ -55,6 +61,18 @@ func Test_ToBasicSlice(t *testing.T) {
 			res, err := lambda.New([]interface{}{int8(1)}).ToInt8Slice()
 			as.Nil(err)
 			as.Equal([]int8{int8(1)}, res)
+		})
+
+		t.Run("success - [2]int8{int8(1), int8(2)}", func(t *testing.T) {
+			res, err := lambda.New([2]int8{int8(1), int8(2)}).ToInt8Slice()
+			as.Nil(err)
+			as.Equal([]int8{int8(1), int8(2)}, res)
+		})
+
+		t.Run("success - [2]interface{}{int8(1), int8(2)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{int8(1), int8(2)}).ToInt8Slice()
+			as.Nil(err)
+			as.Equal([]int8{int8(1), int8(2)}, res)
 		})
 
 		t.Run("fail-1", func(t *testing.T) {
@@ -81,6 +99,18 @@ func Test_ToBasicSlice(t *testing.T) {
 			as.Equal([]int16{int16(1)}, res)
 		})
 
+		t.Run("success - [2]int16{int16(1), int16(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]int16{int16(1), int16(1)}).ToInt16Slice()
+			as.Nil(err)
+			as.Equal([]int16{int16(1), int16(1)}, res)
+		})
+
+		t.Run("success - [2]interface{}{int16(1), int16(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{int16(1), int16(1)}).ToInt16Slice()
+			as.Nil(err)
+			as.Equal([]int16{int16(1), int16(1)}, res)
+		})
+
 		t.Run("fail-1", func(t *testing.T) {
 			_, err := lambda.New(anyVal).ToInt16Slice()
 			as.NotNil(err)
@@ -103,6 +133,18 @@ func Test_ToBasicSlice(t *testing.T) {
 			res, err := lambda.New([]interface{}{int32(1)}).ToInt32Slice()
 			as.Nil(err)
 			as.Equal([]int32{int32(1)}, res)
+		})
+
+		t.Run("success - [2]int32{int32(1), int32(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]int32{int32(1), int32(1)}).ToInt32Slice()
+			as.Nil(err)
+			as.Equal([]int32{int32(1), int32(1)}, res)
+		})
+
+		t.Run("success - [2]interface{}{int32(1), int32(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{int32(1), int32(1)}).ToInt32Slice()
+			as.Nil(err)
+			as.Equal([]int32{int32(1), int32(1)}, res)
 		})
 
 		t.Run("fail-1", func(t *testing.T) {
@@ -129,6 +171,18 @@ func Test_ToBasicSlice(t *testing.T) {
 			as.Equal([]int64{int64(1)}, res)
 		})
 
+		t.Run("success - [2]int64{int64(1), int64(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]int64{int64(1), int64(1)}).ToInt64Slice()
+			as.Nil(err)
+			as.Equal([]int64{int64(1), int64(1)}, res)
+		})
+
+		t.Run("success - [2]interface{}{int64(1), int64(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{int64(1), int64(1)}).ToInt64Slice()
+			as.Nil(err)
+			as.Equal([]int64{int64(1), int64(1)}, res)
+		})
+
 		t.Run("fail-1", func(t *testing.T) {
 			_, err := lambda.New(anyVal).ToInt64Slice()
 			as.NotNil(err)
@@ -151,6 +205,18 @@ func Test_ToBasicSlice(t *testing.T) {
 			res, err := lambda.New([]interface{}{uint(1)}).ToUintSlice()
 			as.Nil(err)
 			as.Equal([]uint{uint(1)}, res)
+		})
+
+		t.Run("success - [2]uint{uint(1), uint(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]uint{uint(1), uint(1)}).ToUintSlice()
+			as.Nil(err)
+			as.Equal([]uint{uint(1), uint(1)}, res)
+		})
+
+		t.Run("success - [2]interface{}{uint(1), uint(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{uint(1), uint(1)}).ToUintSlice()
+			as.Nil(err)
+			as.Equal([]uint{uint(1), uint(1)}, res)
 		})
 
 		t.Run("fail-1", func(t *testing.T) {
@@ -177,6 +243,18 @@ func Test_ToBasicSlice(t *testing.T) {
 			as.Equal([]uint8{uint8(1)}, res)
 		})
 
+		t.Run("success - [2]uint8{uint8(1), uint8(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]uint8{uint8(1), uint8(1)}).ToUint8Slice()
+			as.Nil(err)
+			as.Equal([]uint8{uint8(1), uint8(1)}, res)
+		})
+
+		t.Run("success - [2]interface{}{uint8(1), uint8(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{uint8(1), uint8(1)}).ToUint8Slice()
+			as.Nil(err)
+			as.Equal([]uint8{uint8(1), uint8(1)}, res)
+		})
+
 		t.Run("fail-1", func(t *testing.T) {
 			_, err := lambda.New(anyVal).ToUint8Slice()
 			as.NotNil(err)
@@ -199,6 +277,18 @@ func Test_ToBasicSlice(t *testing.T) {
 			res, err := lambda.New([]interface{}{uint16(1)}).ToUint16Slice()
 			as.Nil(err)
 			as.Equal([]uint16{uint16(1)}, res)
+		})
+
+		t.Run("success - [2]uint16{uint16(1), uint16(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]uint16{uint16(1), uint16(1)}).ToUint16Slice()
+			as.Nil(err)
+			as.Equal([]uint16{uint16(1), uint16(1)}, res)
+		})
+
+		t.Run("success - [2]interface{}{uint16(1), uint16(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{uint16(1), uint16(1)}).ToUint16Slice()
+			as.Nil(err)
+			as.Equal([]uint16{uint16(1), uint16(1)}, res)
 		})
 
 		t.Run("fail-1", func(t *testing.T) {
@@ -225,6 +315,18 @@ func Test_ToBasicSlice(t *testing.T) {
 			as.Equal([]uint32{uint32(1)}, res)
 		})
 
+		t.Run("success - [2]uint32{uint32(1), uint32(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]uint32{uint32(1), uint32(1)}).ToUint32Slice()
+			as.Nil(err)
+			as.Equal([]uint32{uint32(1), uint32(1)}, res)
+		})
+
+		t.Run("success - [2]interface{}{uint32(1), uint32(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{uint32(1), uint32(1)}).ToUint32Slice()
+			as.Nil(err)
+			as.Equal([]uint32{uint32(1), uint32(1)}, res)
+		})
+
 		t.Run("fail-1", func(t *testing.T) {
 			_, err := lambda.New(anyVal).ToUint32Slice()
 			as.NotNil(err)
@@ -247,6 +349,18 @@ func Test_ToBasicSlice(t *testing.T) {
 			res, err := lambda.New([]interface{}{uint64(1)}).ToUint64Slice()
 			as.Nil(err)
 			as.Equal([]uint64{uint64(1)}, res)
+		})
+
+		t.Run("success - [2]uint64{uint64(1), uint64(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]uint64{uint64(1), uint64(1)}).ToUint64Slice()
+			as.Nil(err)
+			as.Equal([]uint64{uint64(1), uint64(1)}, res)
+		})
+
+		t.Run("success - [2]interface{}{uint64(1), uint64(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{uint64(1), uint64(1)}).ToUint64Slice()
+			as.Nil(err)
+			as.Equal([]uint64{uint64(1), uint64(1)}, res)
 		})
 
 		t.Run("fail-1", func(t *testing.T) {
@@ -273,6 +387,18 @@ func Test_ToBasicSlice(t *testing.T) {
 			as.Equal([]float32{float32(1)}, res)
 		})
 
+		t.Run("success - [2]float32{float32(1), float32(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]float32{float32(1), float32(1)}).ToFloat32Slice()
+			as.Nil(err)
+			as.Equal([]float32{float32(1), float32(1)}, res)
+		})
+
+		t.Run("success - [2]interface{}{float32(1), float32(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{float32(1), float32(1)}).ToFloat32Slice()
+			as.Nil(err)
+			as.Equal([]float32{float32(1), float32(1)}, res)
+		})
+
 		t.Run("fail-1", func(t *testing.T) {
 			_, err := lambda.New(anyVal).ToFloat32Slice()
 			as.NotNil(err)
@@ -295,6 +421,18 @@ func Test_ToBasicSlice(t *testing.T) {
 			res, err := lambda.New([]interface{}{float64(1)}).ToFloat64Slice()
 			as.Nil(err)
 			as.Equal([]float64{float64(1)}, res)
+		})
+
+		t.Run("success - [2]float64{float64(1), float64(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]float64{float64(1), float64(1)}).ToFloat64Slice()
+			as.Nil(err)
+			as.Equal([]float64{float64(1), float64(1)}, res)
+		})
+
+		t.Run("success - [2]interface{}{float64(1), float64(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{float64(1), float64(1)}).ToFloat64Slice()
+			as.Nil(err)
+			as.Equal([]float64{float64(1), float64(1)}, res)
 		})
 
 		t.Run("fail-1", func(t *testing.T) {
@@ -321,6 +459,18 @@ func Test_ToBasicSlice(t *testing.T) {
 			as.Equal([]bool{bool(true)}, res)
 		})
 
+		t.Run("success - [2]bool{bool(true), bool(true)}", func(t *testing.T) {
+			res, err := lambda.New([2]bool{bool(true), bool(true)}).ToBoolSlice()
+			as.Nil(err)
+			as.Equal([]bool{bool(true), bool(true)}, res)
+		})
+
+		t.Run("success - [2]interface{}{bool(true), bool(true)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{bool(true), bool(true)}).ToBoolSlice()
+			as.Nil(err)
+			as.Equal([]bool{bool(true), bool(true)}, res)
+		})
+
 		t.Run("fail-1", func(t *testing.T) {
 			_, err := lambda.New(anyVal).ToBoolSlice()
 			as.NotNil(err)
@@ -343,6 +493,18 @@ func Test_ToBasicSlice(t *testing.T) {
 			res, err := lambda.New([]interface{}{complex64(1)}).ToComplex64Slice()
 			as.Nil(err)
 			as.Equal([]complex64{complex64(1)}, res)
+		})
+
+		t.Run("success - [2]complex64{complex64(1), complex64(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]complex64{complex64(1), complex64(1)}).ToComplex64Slice()
+			as.Nil(err)
+			as.Equal([]complex64{complex64(1), complex64(1)}, res)
+		})
+
+		t.Run("success - [2]interface{}{complex64(1), complex64(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{complex64(1), complex64(1)}).ToComplex64Slice()
+			as.Nil(err)
+			as.Equal([]complex64{complex64(1), complex64(1)}, res)
 		})
 
 		t.Run("fail-1", func(t *testing.T) {
@@ -369,6 +531,18 @@ func Test_ToBasicSlice(t *testing.T) {
 			as.Equal([]complex128{complex128(1)}, res)
 		})
 
+		t.Run("success - [2]complex128{complex128(1), complex128(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]complex128{complex128(1), complex128(1)}).ToComplex128Slice()
+			as.Nil(err)
+			as.Equal([]complex128{complex128(1), complex128(1)}, res)
+		})
+
+		t.Run("success - [2]interface{}{complex128(1), complex128(1)}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{complex128(1), complex128(1)}).ToComplex128Slice()
+			as.Nil(err)
+			as.Equal([]complex128{complex128(1), complex128(1)}, res)
+		})
+
 		t.Run("fail-1", func(t *testing.T) {
 			_, err := lambda.New(anyVal).ToComplex128Slice()
 			as.NotNil(err)
@@ -391,6 +565,18 @@ func Test_ToBasicSlice(t *testing.T) {
 			res, err := lambda.New([]interface{}{"1"}).ToStringSlice()
 			as.Nil(err)
 			as.Equal([]string{"1"}, res)
+		})
+
+		t.Run("success - [2]string{-1-, -2-}", func(t *testing.T) {
+			res, err := lambda.New([2]string{"1", "2"}).ToStringSlice()
+			as.Nil(err)
+			as.Equal([]string{"1", "2"}, res)
+		})
+
+		t.Run("success - [2]interface{}{-1-, -2-}", func(t *testing.T) {
+			res, err := lambda.New([2]interface{}{"1", "2"}).ToStringSlice()
+			as.Nil(err)
+			as.Equal([]string{"1", "2"}, res)
 		})
 
 		t.Run("fail-1", func(t *testing.T) {
