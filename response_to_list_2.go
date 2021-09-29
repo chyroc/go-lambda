@@ -16,7 +16,7 @@ func (r *Object) ToInterfaceSlice() (res []interface{}, err error) {
 		return nil
 	}
 
-	if err = r.eachArray(transfer); err != nil {
+	if err = r.eachList(transfer); err != nil {
 		return nil, err
 	}
 	return res, nil
@@ -32,7 +32,7 @@ func (r *Object) ToIntListSlice() (res [][]int, err error) {
 		return nil
 	}
 
-	if err = r.eachArray(transfer); err != nil {
+	if err = r.eachList(transfer); err != nil {
 		return nil, err
 	}
 	return res, nil

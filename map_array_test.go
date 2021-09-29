@@ -20,7 +20,7 @@ func Test_Map(t *testing.T) {
 			var data interface{} = []*item{{Name: "a"}, {Name: "b"}}
 
 			resp, err := lambda.New(data).
-				MapArray(func(idx int, v interface{}) interface{} {
+				MapList(func(idx int, v interface{}) interface{} {
 					return v.(*item).Name
 				}).ToStringSlice()
 			as.Nil(err)
@@ -54,10 +54,10 @@ func Test_Map(t *testing.T) {
 		t.Run("array", func(t *testing.T) {
 			t.Run("pre-fail", func(t *testing.T) {
 				_, err := lambda.New(123).
-					MapArray(func(idx int, obj interface{}) interface{} {
+					MapList(func(idx int, obj interface{}) interface{} {
 						return obj
 					}).
-					MapArray(func(idx int, v interface{}) interface{} {
+					MapList(func(idx int, v interface{}) interface{} {
 						return v.(*item).Name
 					}).ToStringSlice()
 				as.NotNil(err)
@@ -66,7 +66,7 @@ func Test_Map(t *testing.T) {
 
 			t.Run("fail", func(t *testing.T) {
 				_, err := lambda.New(123).
-					MapArray(func(idx int, v interface{}) interface{} {
+					MapList(func(idx int, v interface{}) interface{} {
 						return v.(*item).Name
 					}).ToStringSlice()
 				as.NotNil(err)
@@ -77,7 +77,7 @@ func Test_Map(t *testing.T) {
 		t.Run("array-async", func(t *testing.T) {
 			t.Run("pre-fail", func(t *testing.T) {
 				_, err := lambda.New(123).
-					MapArray(func(idx int, obj interface{}) interface{} {
+					MapList(func(idx int, obj interface{}) interface{} {
 						return obj
 					}).
 					MapArrayAsync(func(idx int, v interface{}) interface{} {
@@ -100,7 +100,7 @@ func Test_Map(t *testing.T) {
 		t.Run("array-async-err", func(t *testing.T) {
 			t.Run("pre-fail", func(t *testing.T) {
 				_, err := lambda.New(123).
-					MapArray(func(idx int, obj interface{}) interface{} {
+					MapList(func(idx int, obj interface{}) interface{} {
 						return obj
 					}).
 					MapArrayAsyncWithErr(func(idx int, v interface{}) (interface{}, error) {
@@ -125,7 +125,7 @@ func Test_Map(t *testing.T) {
 		t.Run("array - dur > 2", func(t *testing.T) {
 			start := time.Now()
 			resp, err := lambda.New([]string{"1", "2", "3"}).
-				MapArray(func(idx int, v interface{}) interface{} {
+				MapList(func(idx int, v interface{}) interface{} {
 					time.Sleep(time.Second)
 					return v
 				}).ToStringSlice()

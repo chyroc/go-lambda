@@ -1,5 +1,9 @@
 package lambda
 
+// Chunk Split the list into shorter length lists
+//
+// Chunk [1, 2, 3, 4, 5] with length 2, return [[1 2] [3 4] [5]]
+// If the length of the last group is less than length, then the last group will be used as an element alone
 func (r *Object) Chunk(size int) *Object {
 	objs := []interface{}{}
 	item := []interface{}{}
@@ -13,7 +17,7 @@ func (r *Object) Chunk(size int) *Object {
 		return nil
 	}
 
-	if err := r.eachArray(transfer); err != nil {
+	if err := r.eachList(transfer); err != nil {
 		return r.clone(nil, err)
 	}
 

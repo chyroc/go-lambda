@@ -39,7 +39,7 @@ func Test_chunk(t *testing.T) {
 	t.Run("chunk - pre-fail", func(t *testing.T) {
 		_, err := lambda.
 			New(123).
-			MapArray(func(idx int, obj interface{}) interface{} { return obj }).
+			MapList(func(idx int, obj interface{}) interface{} { return obj }).
 			Chunk(2).
 			ToIntListSlice()
 		as.NotNil(err)

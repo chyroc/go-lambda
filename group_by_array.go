@@ -8,6 +8,6 @@ func (r *Object) GroupByArray(f func(idx int, obj interface{}) interface{}) *Obj
 		return nil
 	}
 
-	err := r.eachArray(transfer)
+	err := r.eachList(transfer)
 	return r.clone(objs, err)
 }

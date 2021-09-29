@@ -41,7 +41,7 @@ func Test_reverse(t *testing.T) {
 	t.Run("reverse - pre-fail", func(t *testing.T) {
 		_, err := lambda.
 			New(123).
-			MapArray(func(idx int, obj interface{}) interface{} { return obj }).
+			MapList(func(idx int, obj interface{}) interface{} { return obj }).
 			Reverse().
 			ToIntSlice()
 		as.NotNil(err)

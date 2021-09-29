@@ -14,7 +14,7 @@ func Test_filterArray(t *testing.T) {
 		t.Run("int", func(t *testing.T) {
 			resp, err := lambda.
 				New([]int{0, 1, 2, 3}).
-				FilterArray(func(idx int, obj interface{}) bool {
+				FilterList(func(idx int, obj interface{}) bool {
 					return obj.(int)%2 == 0
 				}).
 				ToIntSlice()
@@ -26,7 +26,7 @@ func Test_filterArray(t *testing.T) {
 	t.Run("filterArray - fail", func(t *testing.T) {
 		_, err := lambda.
 			New(123).
-			FilterArray(func(idx int, obj interface{}) bool {
+			FilterList(func(idx int, obj interface{}) bool {
 				return true
 			}).
 			ToIntSlice()
@@ -37,8 +37,8 @@ func Test_filterArray(t *testing.T) {
 	t.Run("filterArray - pre-fail", func(t *testing.T) {
 		_, err := lambda.
 			New(123).
-			MapArray(func(idx int, obj interface{}) interface{} { return obj }).
-			FilterArray(func(idx int, obj interface{}) bool {
+			MapList(func(idx int, obj interface{}) interface{} { return obj }).
+			FilterList(func(idx int, obj interface{}) bool {
 				return true
 			}).
 			ToIntSlice()
@@ -48,7 +48,7 @@ func Test_filterArray(t *testing.T) {
 
 	t.Run("filterArray - not-change-self", func(t *testing.T) {
 		req := lambda.New([]int{0, 1, 2})
-		req.FilterArray(func(idx int, obj interface{}) bool {
+		req.FilterList(func(idx int, obj interface{}) bool {
 			return obj.(int)%2 == 0
 		})
 		res, err := req.ToIntSlice()

@@ -104,7 +104,7 @@ func ExampleObject_Uniq() {
 ### MapArray
 
 ```go
-func ExampleObject_MapArray() {
+func ExampleObject_MapList() {
 	// Traverse the elements of the list, and after each element is processed, the returned elements form a new list
 	res, err := lambda.New([]int{1, 2, 3}).MapArray(func(idx int, obj interface{}) interface{} {
 		return obj.(int) + 1
@@ -120,7 +120,7 @@ func ExampleObject_MapArray() {
 ### FilterArray
 
 ```go
-func ExampleObject_FilterArray() {
+func ExampleObject_FilterList() {
 	// Traverse the elements of the list, each element is added to a new list or not, and a new list is returned
 	res, err := lambda.New([]int{1, 2, 3, 4}).FilterArray(func(idx int, obj interface{}) bool {
 		return obj.(int)%2 == 0

@@ -10,6 +10,6 @@ func (r *Object) IndexOf(obj interface{}) *Object {
 		return nil
 	}
 
-	err := r.eachArray(transfer)
+	err := r.eachList(transfer)
 	return r.clone(objs, err)
 }

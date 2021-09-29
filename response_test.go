@@ -15,7 +15,7 @@ func Test_ToList(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			resp, err := lambda.
 				New([]string{"1", "2", "3"}).
-				FilterArray(func(idx int, obj interface{}) bool {
+				FilterList(func(idx int, obj interface{}) bool {
 					return obj.(string) != "2"
 				}).
 				Join("/")
@@ -38,7 +38,7 @@ func Test_ToList(t *testing.T) {
 			resp := []*item{}
 			err := lambda.
 				New([]string{"1", "2"}).
-				MapArray(func(idx int, v interface{}) interface{} {
+				MapList(func(idx int, v interface{}) interface{} {
 					return &item{Name: v.(string)}
 				}).
 				ToList(&resp)
@@ -52,7 +52,7 @@ func Test_ToList(t *testing.T) {
 			resp := []*item{}
 			err := lambda.
 				New([]string{"1", "2"}).
-				MapArray(func(idx int, v interface{}) interface{} {
+				MapList(func(idx int, v interface{}) interface{} {
 					return &item{Name: v.(string)}
 				}).
 				ToList(resp)
@@ -81,7 +81,7 @@ func Test_ToList(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			resp, err := lambda.
 				New([]rune{'1', '2', '3'}).
-				FilterArray(func(idx int, obj interface{}) bool {
+				FilterList(func(idx int, obj interface{}) bool {
 					return obj.(int32) != '2'
 				}).
 				String()
@@ -92,7 +92,7 @@ func Test_ToList(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			resp, err := lambda.
 				New([]byte("123")).
-				FilterArray(func(idx int, obj interface{}) bool {
+				FilterList(func(idx int, obj interface{}) bool {
 					return obj.(uint8) != '2'
 				}).
 				String()
@@ -120,7 +120,7 @@ func Test_ToList(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			resp, err := lambda.
 				New([]string{"1", "2", "3"}).
-				MapArray(func(idx int, v interface{}) interface{} {
+				MapList(func(idx int, v interface{}) interface{} {
 					return &item{Name: v.(string)}
 				}).
 				String()

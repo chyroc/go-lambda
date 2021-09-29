@@ -56,7 +56,7 @@ func Test_groupByArray(t *testing.T) {
 	t.Run("groupByArray - pre-fail", func(t *testing.T) {
 		_, err := lambda.
 			New(123).
-			MapArray(func(idx int, obj interface{}) interface{} { return obj }).
+			MapList(func(idx int, obj interface{}) interface{} { return obj }).
 			GroupByArray(func(idx int, obj interface{}) interface{} {
 				return obj
 			}).

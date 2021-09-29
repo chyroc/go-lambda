@@ -30,12 +30,12 @@ func ExampleObject_Chunk() {
 
 func ExampleObject_Compact() {
 	// Remove 0-valued elements from the list
-	res, err := lambda.New([]int{0, 1, 2, 1, 0, 2}).Compact().ToIntSlice()
+	res, err := lambda.New([]interface{}{0, 1, false, true, "", "str"}).Compact().ToInterfaceSlice()
 	fmt.Println("err:", err)
 	fmt.Println("res:", res)
 	// output:
 	// err: <nil>
-	// res: [1 2 1 2]
+	// res: [1 true str]
 }
 
 func ExampleObject_Flatten() {
@@ -68,9 +68,9 @@ func ExampleObject_Uniq() {
 	// res: [1 2 3 4]
 }
 
-func ExampleObject_MapArray() {
+func ExampleObject_MapList() {
 	// Traverse the elements of the list, and after each element is processed, the returned elements form a new list
-	res, err := lambda.New([]int{1, 2, 3}).MapArray(func(idx int, obj interface{}) interface{} {
+	res, err := lambda.New([]int{1, 2, 3}).MapList(func(idx int, obj interface{}) interface{} {
 		return obj.(int) + 1
 	}).ToIntSlice()
 	fmt.Println("err:", err)
@@ -80,9 +80,9 @@ func ExampleObject_MapArray() {
 	// res: [2 3 4]
 }
 
-func ExampleObject_FilterArray() {
+func ExampleObject_FilterList() {
 	// Traverse the elements of the list, each element is added to a new list or not, and a new list is returned
-	res, err := lambda.New([]int{1, 2, 3, 4}).FilterArray(func(idx int, obj interface{}) bool {
+	res, err := lambda.New([]int{1, 2, 3, 4}).FilterList(func(idx int, obj interface{}) bool {
 		return obj.(int)%2 == 0
 	}).ToIntSlice()
 	fmt.Println("err:", err)

@@ -11,6 +11,6 @@ func (r *Object) Uniq() *Object {
 		return nil
 	}
 
-	err := r.eachArray(transfer)
+	err := r.eachList(transfer)
 	return r.clone(objs, err)
 }

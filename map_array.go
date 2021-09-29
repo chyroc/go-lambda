@@ -6,18 +6,18 @@ import (
 	"github.com/chyroc/go-lambda/internal"
 )
 
-func (r *Object) MapArray(f func(idx int, obj interface{}) interface{}) *Object {
+func (r *Object) MapList(f func(idx int, obj interface{}) interface{}) *Object {
 	objs := []interface{}{}
 	transfer := func(idx int, obj interface{}) error {
 		objs = append(objs, f(idx, obj))
 		return nil
 	}
 
-	err := r.eachArray(transfer)
+	err := r.eachList(transfer)
 	return r.clone(objs, err)
 }
 
-func (r *Object) MapArrayWithErr(f func(idx int, obj interface{}) (interface{}, error)) *Object {
+func (r *Object) MapListErr(f func(idx int, obj interface{}) (interface{}, error)) *Object {
 	objs := []interface{}{}
 	transfer := func(idx int, obj interface{}) error {
 		res, err := f(idx, obj)
@@ -28,11 +28,11 @@ func (r *Object) MapArrayWithErr(f func(idx int, obj interface{}) (interface{}, 
 		return nil
 	}
 
-	err := r.eachArray(transfer)
+	err := r.eachList(transfer)
 	return r.clone(objs, err)
 }
 
-func (r *Object) eachArray(f func(idx int, item interface{}) error) error {
+func (r *Object) eachList(f func(idx int, item interface{}) error) error {
 	if r.err != nil {
 		return r.err
 	}

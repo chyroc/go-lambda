@@ -65,7 +65,7 @@ func Test_compact(t *testing.T) {
 	t.Run("compact - pre-fail", func(t *testing.T) {
 		_, err := lambda.
 			New(123).
-			MapArray(func(idx int, obj interface{}) interface{} { return obj }).
+			MapList(func(idx int, obj interface{}) interface{} { return obj }).
 			Compact().
 			ToIntSlice()
 		as.NotNil(err)
