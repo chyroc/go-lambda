@@ -244,6 +244,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: `str`, ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{"str"}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{"str"}`, ErrContain: "can't convert"},
 		},
 	},
 	{
@@ -261,6 +263,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{"str"}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{"str"}`, ErrContain: "can't convert"},
 		},
 	},
 	{
@@ -278,6 +282,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{"str"}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{"str"}`, ErrContain: "can't convert"},
 		},
 	},
 	{
@@ -295,6 +301,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{"str"}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{"str"}`, ErrContain: "can't convert"},
 		},
 	},
 	{
@@ -312,6 +320,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{"str"}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{"str"}`, ErrContain: "can't convert"},
 		},
 	},
 	{
@@ -329,6 +339,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{"str"}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{"str"}`, ErrContain: "can't convert"},
 		},
 	},
 	{
@@ -346,6 +358,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{"str"}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{"str"}`, ErrContain: "can't convert"},
 		},
 	},
 	{
@@ -363,6 +377,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{"str"}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{"str"}`, ErrContain: "can't convert"},
 		},
 	},
 	{
@@ -380,6 +396,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{"str"}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{"str"}`, ErrContain: "can't convert"},
 		},
 	},
 	{
@@ -397,6 +415,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{"str"}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{"str"}`, ErrContain: "can't convert"},
 		},
 	},
 	{
@@ -414,6 +434,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{"str"}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{"str"}`, ErrContain: "can't convert"},
 		},
 	},
 
@@ -433,6 +455,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{"str"}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{"str"}`, ErrContain: "can't convert"},
 		},
 	},
 	{
@@ -450,6 +474,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{"str"}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{"str"}`, ErrContain: "can't convert"},
 		},
 	},
 
@@ -469,6 +495,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{"str"}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{"str"}`, ErrContain: "can't convert"},
 		},
 	},
 
@@ -488,6 +516,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{"str"}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{"str"}`, ErrContain: "can't convert"},
 		},
 	},
 	{
@@ -505,6 +535,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]string{"str"}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{"str"}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{"str"}`, ErrContain: "can't convert"},
 		},
 	},
 
@@ -523,6 +555,8 @@ var BasicToTypeSliceReqs = []*internal.ToTypeReq{
 			// other type
 			{Args: "str", ArgsType: "str", ErrContain: "can't convert"},
 			{Args: `[]int{1}`, ErrContain: "can't convert"},
+			{Args: `[]interface{}{false}`, ErrContain: "can't convert"},
+			{Args: `[2]interface{}{false}`, ErrContain: "can't convert"},
 		},
 	},
 }
