@@ -3,7 +3,7 @@ module github.com/chyroc/go-lambda
 go 1.17
 
 require (
-	github.com/chyroc/go-ptr v1.6.0
+	github.com/chyroc/go-ptr v1.7.0
 	github.com/stretchr/testify v1.8.1
 )
 
